@@ -1,0 +1,28 @@
+.header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+
+  img {
+    width: 3rem;
+    height: auto;
+    margin-right: 1rem;
+  }
+
+  &__text {
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+}
+
+.nav {
+  &__link {
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+}
