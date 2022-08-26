@@ -511,6 +511,27 @@ function styleTagTransform(css, styleElement) {
 
 module.exports = styleTagTransform;
 
+/***/ }),
+
+/***/ "./src/modules/createTodo.js":
+/*!***********************************!*\
+  !*** ./src/modules/createTodo.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Todo)
+/* harmony export */ });
+class Todo {
+  constructor(title, description, dueDate, priority) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority;
+  }
+}
+
 /***/ })
 
 /******/ 	});
@@ -594,7 +615,12 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/main.scss */ "./src/sass/main.scss");
+/* harmony import */ var _modules_createTodo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/createTodo */ "./src/modules/createTodo.js");
 
+
+
+const task1 = new _modules_createTodo__WEBPACK_IMPORTED_MODULE_1__["default"]('Learn JavaScript', 'Finish the course and start working on the project', '10/09/22', 'high');
+console.log(task1);
 })();
 
 /******/ })()
