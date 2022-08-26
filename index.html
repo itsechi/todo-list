@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   <title>ToDoList</title>
 <script defer src="main.js"></script></head>
 
@@ -22,8 +23,30 @@
         <li class="nav__link"><a href="#">HOME</a></li>
       </ul>
     </nav>
-    <button>ADD TASK</button>
+    <button id="openTodoFormBtn" class="add-task-btn">ADD TASK</button>
   </header>
+
+  <div class="overlay"></div>
+
+  <div class="todo-form">
+    <div class="todo-form__header">
+      <h2>NEW TASK</h2>
+      <span class="material-icons-outlined">close</span>
+    </div>
+    <form class="todo-form__form">
+      <div class="todo-form__inputs">
+        <input type="text" placeholder="Title of the task">
+        <textarea placeholder="Description"></textarea>
+        <div class="todo-form__buttons">
+          <button id="dueDateBtn">DUE DATE</button>
+          <button id="projectBtn">PROJECT</button>
+          <button id="priorityBtn">PRIORITY</button>
+        </div>
+      </div>
+      <button class="add-task-btn">ADD TASK</button>
+    </form>
+  </div>
+
 </body>
 
 </html>
