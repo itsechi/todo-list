@@ -551,12 +551,17 @@ function UI() {
   function closeTodoForm() {
     overlay.classList.add('hidden');
     todoForm.classList.add('hidden');
+    document.getElementById('todoTitle').value = '';
+    document.getElementById('todoDescription').value = '';
+    document.getElementById('projectBtn').value = '';
+    document.getElementById('priorityBtn').value = '';
+    dueDateBtn.valueAsDate = new Date();
   }
 
   function addTodo(e) {
     e.preventDefault();
-    closeTodoForm();
     (0,_addTodo__WEBPACK_IMPORTED_MODULE_0__["default"])();
+    closeTodoForm();
   }
 }
 
@@ -577,11 +582,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function addTodoObject() {
-  const title = document.getElementById('todoTitle').value;
-  const description = document.getElementById('todoDescription').value;
-  const dueDate = document.getElementById('dueDateBtn').value;
-  const project = document.getElementById('projectBtn').value;
-  const priority = document.getElementById('priorityBtn').value;
+  let title = document.getElementById('todoTitle').value;
+  let description = document.getElementById('todoDescription').value;
+  let dueDate = document.getElementById('dueDateBtn').value;
+  let project = document.getElementById('projectBtn').value;
+  let priority = document.getElementById('priorityBtn').value;
+
+  if (!title || title.trim().length === 0) return;
   const todo = new _createTodo__WEBPACK_IMPORTED_MODULE_0__["default"](title, description, dueDate, project, priority);
   console.log(todo);
 }
@@ -691,18 +698,12 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/main.scss */ "./src/sass/main.scss");
-/* harmony import */ var _modules_createTodo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/createTodo */ "./src/modules/createTodo.js");
-/* harmony import */ var _modules_UI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/UI */ "./src/modules/UI.js");
-/* harmony import */ var _modules_addTodo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/addTodo */ "./src/modules/addTodo.js");
+/* harmony import */ var _modules_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/UI */ "./src/modules/UI.js");
 
 
 
+(0,_modules_UI__WEBPACK_IMPORTED_MODULE_1__["default"])();
 
-
-const task1 = new _modules_createTodo__WEBPACK_IMPORTED_MODULE_1__["default"]('Learn JavaScript', 'Finish the course and start working on the project', '10/09/22', 'high');
-console.log(task1);
-
-(0,_modules_UI__WEBPACK_IMPORTED_MODULE_2__["default"])();
 })();
 
 /******/ })()

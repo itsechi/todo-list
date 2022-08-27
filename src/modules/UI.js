@@ -25,11 +25,16 @@ export default function UI() {
   function closeTodoForm() {
     overlay.classList.add('hidden');
     todoForm.classList.add('hidden');
+    document.getElementById('todoTitle').value = '';
+    document.getElementById('todoDescription').value = '';
+    document.getElementById('projectBtn').value = '';
+    document.getElementById('priorityBtn').value = '';
+    dueDateBtn.valueAsDate = new Date();
   }
 
   function addTodo(e) {
     e.preventDefault();
-    closeTodoForm();
     addTodoObject();
+    closeTodoForm();
   }
 }
