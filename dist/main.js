@@ -523,7 +523,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ UI)
 /* harmony export */ });
-/* harmony import */ var _createTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createTodo */ "./src/modules/createTodo.js");
+/* harmony import */ var _addTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addTodo */ "./src/modules/addTodo.js");
 
 
 function UI() {
@@ -532,12 +532,15 @@ function UI() {
   const overlay = document.getElementById('overlay');
   const todoForm = document.getElementById('todoForm');
   const addTodoBtn = document.getElementById('addTodoBtn');
+  const dueDateBtn = document.getElementById('dueDateBtn');
 
   // handlers
   openTodoFormBtn.addEventListener('click', displayTodoForm);
   overlay.addEventListener('click', closeTodoForm);
   closeTodoFormBtn.addEventListener('click', closeTodoForm);
   addTodoBtn.addEventListener('click', addTodo);
+
+  dueDateBtn.valueAsDate = new Date();
 
   // functions
   function displayTodoForm() {
@@ -553,10 +556,36 @@ function UI() {
   function addTodo(e) {
     e.preventDefault();
     closeTodoForm();
-    const todo = new _createTodo__WEBPACK_IMPORTED_MODULE_0__["default"]();
-    console.log(todo);  
+    (0,_addTodo__WEBPACK_IMPORTED_MODULE_0__["default"])();
   }
 }
+
+
+/***/ }),
+
+/***/ "./src/modules/addTodo.js":
+/*!********************************!*\
+  !*** ./src/modules/addTodo.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ addTodoObject)
+/* harmony export */ });
+/* harmony import */ var _createTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createTodo */ "./src/modules/createTodo.js");
+
+
+function addTodoObject() {
+  const title = document.getElementById('todoTitle').value;
+  const description = document.getElementById('todoDescription').value;
+  const dueDate = document.getElementById('dueDateBtn').value;
+  const project = document.getElementById('projectBtn').value;
+  const priority = document.getElementById('priorityBtn').value;
+  const todo = new _createTodo__WEBPACK_IMPORTED_MODULE_0__["default"](title, description, dueDate, project, priority);
+  console.log(todo);
+}
+
 
 /***/ }),
 
@@ -664,6 +693,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sass_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sass/main.scss */ "./src/sass/main.scss");
 /* harmony import */ var _modules_createTodo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/createTodo */ "./src/modules/createTodo.js");
 /* harmony import */ var _modules_UI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/UI */ "./src/modules/UI.js");
+/* harmony import */ var _modules_addTodo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/addTodo */ "./src/modules/addTodo.js");
+
 
 
 
