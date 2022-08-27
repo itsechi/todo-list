@@ -607,10 +607,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Todo)
 /* harmony export */ });
 class Todo {
-  constructor(title, description, dueDate, priority) {
+  constructor(title, description, dueDate, project, priority) {
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
+    this.project = project;
     this.priority = priority;
   }
 }
