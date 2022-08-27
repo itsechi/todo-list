@@ -28,36 +28,41 @@
     <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
   </header>
 
-  <div class="overlay hidden" id="overlay"></div>
+  <main>
+    <div class="overlay hidden" id="overlay"></div>
 
-  <div class="todo-form hidden" id="todoForm">
+    <div class="todo-form hidden" id="todoForm">
 
-    <div class="todo-form__header">
-      <h2 class="todo-form__title">NEW TASK</h2>
-      <span class="todo-form__icon material-icons-outlined" id="closeTodoFormBtn">close</span>
+      <div class="todo-form__header">
+        <h2 class="todo-form__title">NEW TASK</h2>
+        <span class="todo-form__icon material-icons-outlined" id="closeTodoFormBtn">close</span>
+      </div>
+
+      <form class="todo-form__form">
+        <div class="todo-form__inputs">
+          <input class="todo-form__text todo-form__text--bold" type="text" placeholder="Title of the task"
+            id="todoTitle">
+          <textarea class="todo-form__text" rows="3" cols="0" placeholder="Description" id="todoDescription"></textarea>
+          <div class="todo-form__buttons">
+            <input class="btn btn--secondary" type="date" id="dueDateBtn"></button>
+            <!-- change value later -->
+            <select class="btn btn--secondary" id="projectBtn">
+              <option disabled selected value>PROJECT</option>
+            </select>
+            <select class="btn btn--secondary" id="priorityBtn">
+              <option disabled selected value>PRIORITY</option>
+              <option value="high">HIGH</option>
+              <option value="medium">MEDIUM</option>
+              <option value="low">LOW</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn btn--primary" id="addTodoBtn">ADD TASK</button>
+      </form>
     </div>
 
-    <form class="todo-form__form">
-      <div class="todo-form__inputs">
-        <input class="todo-form__text todo-form__text--bold" type="text" placeholder="Title of the task" id="todoTitle">
-        <textarea class="todo-form__text" rows="3" cols="0" placeholder="Description" id="todoDescription"></textarea>
-        <div class="todo-form__buttons">
-          <input class="btn btn--secondary" type="date" id="dueDateBtn"></button>
-          <!-- change value later -->
-          <select class="btn btn--secondary" id="projectBtn">
-            <option disabled selected value>PROJECT</option>
-          </select>
-          <select class="btn btn--secondary" id="priorityBtn">
-            <option disabled selected value>PRIORITY</option>
-            <option value="high">HIGH</option>
-            <option value="medium">MEDIUM</option>
-            <option value="low">LOW</option>
-          </select>
-        </div>
-      </div>
-      <button class="btn btn--primary" id="addTodoBtn">ADD TASK</button>
-    </form>
-  </div>
+    <div class="todo-container" id="todoContainer"></div>
+  </main>
 
 </body>
 
