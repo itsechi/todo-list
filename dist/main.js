@@ -526,42 +526,52 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _addTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addTodo */ "./src/modules/addTodo.js");
 
 
-function UI() {
-  const openTodoFormBtn = document.getElementById('openTodoFormBtn');
-  const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
-  const overlay = document.getElementById('overlay');
-  const todoForm = document.getElementById('todoForm');
-  const addTodoBtn = document.getElementById('addTodoBtn');
-  const dueDateBtn = document.getElementById('dueDateBtn');
-
-  // handlers
-  openTodoFormBtn.addEventListener('click', displayTodoForm);
-  overlay.addEventListener('click', closeTodoForm);
-  closeTodoFormBtn.addEventListener('click', closeTodoForm);
-  addTodoBtn.addEventListener('click', addTodo);
-
-  dueDateBtn.valueAsDate = new Date();
-
-  // functions
-  function displayTodoForm() {
-    overlay.classList.remove('hidden');
-    todoForm.classList.remove('hidden');
+class UI {
+  constructor() {
+    this.createTodoForm();
   }
 
-  function closeTodoForm() {
-    overlay.classList.add('hidden');
-    todoForm.classList.add('hidden');
-    document.getElementById('todoTitle').value = '';
-    document.getElementById('todoDescription').value = '';
-    document.getElementById('projectBtn').value = '';
-    document.getElementById('priorityBtn').value = '';
+  createTodoForm() {
+    const openTodoFormBtn = document.getElementById('openTodoFormBtn');
+    const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
+    const overlay = document.getElementById('overlay');
+    const todoForm = document.getElementById('todoForm');
+    const addTodoBtn = document.getElementById('addTodoBtn');
+    const dueDateBtn = document.getElementById('dueDateBtn');
+
+    // handlers
+    openTodoFormBtn.addEventListener('click', displayTodoForm);
+    overlay.addEventListener('click', closeTodoForm);
+    closeTodoFormBtn.addEventListener('click', closeTodoForm);
+    addTodoBtn.addEventListener('click', addTodo);
+
     dueDateBtn.valueAsDate = new Date();
+
+    // functions
+    function displayTodoForm() {
+      overlay.classList.remove('hidden');
+      todoForm.classList.remove('hidden');
+    }
+
+    function closeTodoForm() {
+      overlay.classList.add('hidden');
+      todoForm.classList.add('hidden');
+      document.getElementById('todoTitle').value = '';
+      document.getElementById('todoDescription').value = '';
+      document.getElementById('projectBtn').value = '';
+      document.getElementById('priorityBtn').value = '';
+      dueDateBtn.valueAsDate = new Date();
+    }
+
+    function addTodo(e) {
+      e.preventDefault();
+      (0,_addTodo__WEBPACK_IMPORTED_MODULE_0__["default"])();
+      closeTodoForm();
+    }
   }
 
-  function addTodo(e) {
-    e.preventDefault();
-    (0,_addTodo__WEBPACK_IMPORTED_MODULE_0__["default"])();
-    closeTodoForm();
+  displayTodos() {
+    const container = document.getElementById('todoContainer');
   }
 }
 
@@ -703,7 +713,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,_modules_UI__WEBPACK_IMPORTED_MODULE_1__["default"])();
+const app = new _modules_UI__WEBPACK_IMPORTED_MODULE_1__["default"]();
 
 })();
 
