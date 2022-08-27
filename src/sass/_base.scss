@@ -52,19 +52,19 @@ li {
   margin: 0.3rem;
   margin-top: 1rem;
   border: 2px solid black;
-
-  &:hover {
-    background-color: black;
-    color: white;
-  }
 }
 
 input,
 textarea,
-button {
+button,
+select,
+option {
   font-family: inherit;
 }
 
+option {
+  font-weight: 700;
+}
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.46);
@@ -78,3 +78,5 @@ button {
 .hidden {
   display: none;
 }
+
+

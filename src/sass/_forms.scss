@@ -38,19 +38,18 @@
     width: 100%;
     padding: 1rem;
     margin-bottom: 1rem;
+  }
 
-    & input,
-    textarea {
-      border: none;
-      outline: none;
-      background-color: $grey;
-      font-size: 1rem;
-      margin: 0.3rem;
-    }
+  &__text {
+    border: none;
+    outline: none;
+    background-color: $grey;
+    font-size: 1rem;
+    margin: 0.3rem;
+  }
 
-    & input {
-      font-weight: 600;
-    }
+  &__text--bold {
+    font-weight: 600;
   }
 
   &__buttons {
@@ -62,3 +61,4 @@
     display: none;
   }
 }
+
