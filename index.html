@@ -14,36 +14,40 @@
 
 <body>
   <header class="header">
+
     <div class="logo">
-      <img src="img/logo.svg" alt="">
+      <img class="logo__img" src="img/logo.svg" alt="">
       <h1 class="logo__text">ToDoList</h1>
     </div>
+
     <nav class="nav">
       <ul>
         <li class="nav__link"><a href="#">HOME</a></li>
       </ul>
     </nav>
-    <button id="openTodoFormBtn" class="add-task-btn">ADD TASK</button>
+    <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
   </header>
 
   <div class="overlay hidden" id="overlay"></div>
 
   <div class="todo-form hidden" id="todoForm">
+
     <div class="todo-form__header">
-      <h2>NEW TASK</h2>
-      <span class="material-icons-outlined">close</span>
+      <h2 class="todo-form__title">NEW TASK</h2>
+      <span class="todo-form__icon material-icons-outlined">close</span>
     </div>
+
     <form class="todo-form__form">
       <div class="todo-form__inputs">
         <input type="text" placeholder="Title of the task">
         <textarea placeholder="Description"></textarea>
         <div class="todo-form__buttons">
-          <button id="dueDateBtn">DUE DATE</button>
-          <button id="projectBtn">PROJECT</button>
-          <button id="priorityBtn">PRIORITY</button>
+          <button  class="btn btn--secondary" id="dueDateBtn">DUE DATE</button>
+          <button class="btn btn--secondary" id="projectBtn">PROJECT</button>
+          <button class="btn btn--secondary" id="priorityBtn">PRIORITY</button>
         </div>
       </div>
-      <button class="add-task-btn">ADD TASK</button>
+      <button class="btn btn--primary">ADD TASK</button>
     </form>
   </div>
 
