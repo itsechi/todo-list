@@ -29,18 +29,33 @@ li {
   list-style: none;
 }
 
-.add-task-btn {
+.btn {
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+}
+
+.btn--primary {
   outline: none;
   border: none;
   background-color: black;
   color: white;
-  padding: 1rem 2rem;
-  font-weight: 700;
-  font-size: 1rem;
 
   &:hover {
     outline: 1px solid black;
     outline-offset: 0.3rem;
+  }
+}
+
+.btn--secondary {
+  margin: 0.3rem;
+  margin-top: 1rem;
+  border: 2px solid black;
+
+  &:hover {
+    background-color: black;
+    color: white;
   }
 }
 
@@ -50,9 +65,6 @@ button {
   font-family: inherit;
 }
 
-button {
-  cursor: pointer;
-}
 
 .overlay {
   background-color: rgba(0, 0, 0, 0.46);

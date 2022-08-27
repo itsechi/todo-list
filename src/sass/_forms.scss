@@ -16,12 +16,12 @@
     justify-content: space-between;
     width: 100%;
     margin-bottom: 1rem;
+  }
 
-    & span {
-      cursor: pointer;
-      font-size: 2rem;
-      font-weight: 600;
-    }
+  &__icon {
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 600;
   }
 
   &__form {
@@ -56,20 +56,6 @@
   &__buttons {
     display: flex;
     justify-content: center;
-
-    & button {
-      margin: 0.3rem;
-      margin-top: 1rem;
-      padding: 0.5rem 2rem;
-      font-weight: 700;
-      font-size: 1rem;
-      border: 2px solid black;
-
-      &:hover {
-        background-color: black;
-        color: white;
-      }
-    }
   }
 
   &.hidden {
