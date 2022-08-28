@@ -10,15 +10,16 @@
 .todo {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 1rem;
   margin-top: 0;
   // background-color: $grey;
-  padding: 1rem 3rem;
+  padding: 1rem 1.5rem;
   border: 1px solid black;
+  width: 40rem;
 
   &__left {
     display: flex;
-    margin-right: 20vw;
     align-items: center;
   }
 
@@ -33,11 +34,30 @@
     font-weight: 600;
     font-size: 1rem;
     margin-bottom: 0.2rem;
+    max-width: 30rem;
   }
 
   &__date {
     color: #78716C;
   }
 
-  
+  &__priority {
+    display: inline-block;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+  }
+
+  &__priority--low {
+    background-color: #1dd1a1;
+  }
+
+  &__priority--medium {
+    background-color: #feca57;
+  }
+
+  &__priority--high {
+    background-color: #ff6b6b;
+  }
 }

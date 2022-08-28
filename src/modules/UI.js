@@ -50,11 +50,31 @@ export default class UI {
 
   static displayTodos() {
     const container = document.getElementById('todoContainer');
+    container.innerHTML = '';
     const todos = createTodo.unfinishedTodos;
     // delete later
-    const task1 = new Todo('Learn JavaScript', 'Finish the course and start working on the project', '10/09/22', 'high');
-    const task2 = new Todo('Learn JavaScript', 'Finish the course and start working on the project', '10/09/22', 'high');
-    todos.push(task1, task2);
+    const task1 = new Todo(
+      'Learn JavaScript',
+      'Finish the course and start working on the project',
+      '10/09/22',
+      '',
+      'high'
+    );
+    const task2 = new Todo(
+      'Learn JavaScript',
+      'Finish the course and start working on the project',
+      '10/09/22',
+      '',
+      'medium'
+    );
+    const task3 = new Todo(
+      'Learn JavaScript',
+      'Finish the course and start working on the project',
+      '10/09/22',
+      '',
+      'low'
+    );
+    todos.push(task1, task2, task3);
     console.log(todos);
     //
     todos.forEach(todo => {
@@ -62,7 +82,7 @@ export default class UI {
     <div class="todo__left">
       <input class="todo__check" type="checkbox" name="" id="">
       <div class="todo__text">
-        <h3 class="todo__title">${todo.title}<span class="todo__priority"></span></h3>
+        <h3 class="todo__title">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
         <p class="todo__date">${todo.dueDate}</p>
       </div>
     </div>
