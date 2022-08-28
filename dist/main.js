@@ -523,7 +523,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ UI)
 /* harmony export */ });
-/* harmony import */ var _addTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addTodo */ "./src/modules/addTodo.js");
+/* harmony import */ var _createTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createTodo */ "./src/modules/createTodo.js");
 
 
 class UI {
@@ -565,7 +565,7 @@ class UI {
 
     function addTodo(e) {
       e.preventDefault();
-      (0,_addTodo__WEBPACK_IMPORTED_MODULE_0__["default"])();
+      _createTodo__WEBPACK_IMPORTED_MODULE_0__.createTodo.addTodo();
       closeTodoForm();
     }
   }
@@ -578,20 +578,23 @@ class UI {
 
 /***/ }),
 
-/***/ "./src/modules/addTodo.js":
-/*!********************************!*\
-  !*** ./src/modules/addTodo.js ***!
-  \********************************/
+/***/ "./src/modules/createTodo.js":
+/*!***********************************!*\
+  !*** ./src/modules/createTodo.js ***!
+  \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ addTodoObject)
+/* harmony export */   "createTodo": () => (/* binding */ createTodo)
 /* harmony export */ });
-/* harmony import */ var _createTodo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./createTodo */ "./src/modules/createTodo.js");
+/* harmony import */ var _todoConstructor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./todoConstructor */ "./src/modules/todoConstructor.js");
 
 
-function addTodoObject() {
+const createTodo = (() => {
+  const unfinishedTodos = [];
+
+  function addTodo() {
   let title = document.getElementById('todoTitle').value;
   let description = document.getElementById('todoDescription').value;
   let dueDate = document.getElementById('dueDateBtn').value;
@@ -599,17 +602,20 @@ function addTodoObject() {
   let priority = document.getElementById('priorityBtn').value;
 
   if (!title || title.trim().length === 0) return;
-  const todo = new _createTodo__WEBPACK_IMPORTED_MODULE_0__["default"](title, description, dueDate, project, priority);
-  console.log(todo);
-}
+  const todo = new _todoConstructor__WEBPACK_IMPORTED_MODULE_0__["default"](title, description, dueDate, project, priority);
+  unfinishedTodos.push(todo);
+  console.log(unfinishedTodos);
+  }
+  return {addTodo};
+})();
 
 
 /***/ }),
 
-/***/ "./src/modules/createTodo.js":
-/*!***********************************!*\
-  !*** ./src/modules/createTodo.js ***!
-  \***********************************/
+/***/ "./src/modules/todoConstructor.js":
+/*!****************************************!*\
+  !*** ./src/modules/todoConstructor.js ***!
+  \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -625,6 +631,7 @@ class Todo {
     this.priority = priority;
   }
 }
+
 
 /***/ })
 

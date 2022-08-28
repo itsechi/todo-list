@@ -1,4 +1,4 @@
-import addTodoObject from './addTodo';
+import { createTodo } from './createTodo';
 
 export default class UI {
   constructor() {
@@ -39,7 +39,7 @@ export default class UI {
 
     function addTodo(e) {
       e.preventDefault();
-      addTodoObject();
+      createTodo.addTodo();
       closeTodoForm();
     }
   }
