@@ -41,10 +41,25 @@ export default class UI {
       e.preventDefault();
       createTodo.addTodo();
       closeTodoForm();
+      displayTodos();
     }
-  }
 
-  displayTodos() {
-    const container = document.getElementById('todoContainer');
+    function displayTodos() {
+      const container = document.getElementById('todoContainer');
+      const todos = createTodo.unfinishedTodos;
+      todos.forEach(todo => {
+        let html = `<div class="todo">
+      <div class="todo__left">
+        <input type="radio" name="" id="">
+        <div class="todo__text">
+          <h3 class="todo__title">${todo.title}<span class="todo__priority"></span></h3>
+          <p class="todo__date">${todo.dueDate}</p>
+        </div>
+      </div>
+      <div class="todo__right"></div>
+    </div>`;
+        container.insertAdjacentHTML('afterend', html);
+      });
+    }
   }
 }

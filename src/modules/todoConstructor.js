@@ -7,3 +7,4 @@ export default class Todo {
     this.priority = priority;
   }
 }
+
