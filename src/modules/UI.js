@@ -1,8 +1,10 @@
 import { createTodo } from './createTodo';
+import Todo from './todoConstructor'; // delete later
 
 export default class UI {
   constructor() {
     UI.createTodoForm();
+    UI.displayTodos();
   }
 
   static createTodoForm() {
@@ -49,18 +51,31 @@ export default class UI {
   static displayTodos() {
     const container = document.getElementById('todoContainer');
     const todos = createTodo.unfinishedTodos;
+    // delete later
+    const task1 = new Todo('Learn JavaScript', 'Finish the course and start working on the project', '10/09/22', 'high');
+    const task2 = new Todo('Learn JavaScript', 'Finish the course and start working on the project', '10/09/22', 'high');
+    todos.push(task1, task2);
+    console.log(todos);
+    //
     todos.forEach(todo => {
       let html = `<div class="todo">
     <div class="todo__left">
-      <input type="radio" name="" id="">
+      <input class="todo__check" type="checkbox" name="" id="">
       <div class="todo__text">
         <h3 class="todo__title">${todo.title}<span class="todo__priority"></span></h3>
         <p class="todo__date">${todo.dueDate}</p>
       </div>
     </div>
-    <div class="todo__right"></div>
+    <div class="todo__right">
+    <span class="icon material-icons-outlined">
+    edit
+    </span>
+<span class="icon material-icons-outlined">
+delete
+</span>
+    </div>
   </div>`;
-      container.insertAdjacentHTML('afterend', html);
+      container.insertAdjacentHTML('beforeend', html);
     });
   }
 }
