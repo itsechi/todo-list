@@ -6,6 +6,8 @@ export default class UI {
   constructor() {
     UI.createTodoForm();
     UI.displayTodos();
+    UI.displayDetails();
+    UI.container = document.getElementById('todoContainer');
   }
 
   static createTodoForm() {
@@ -78,10 +80,10 @@ export default class UI {
     todos.push(task1, task2, task3);
     console.log(todos);
     //
-    todos.forEach(todo => {
+    todos.forEach((todo, index) => {
       const today = format(new Date(), 'yyyy-MM-dd');
       const date = format(new Date(todo.dueDate), 'dd MMM yyyy');
-      let html = `<div class="todo">
+      let html = `<div class="todo" data-index=${index}>
     <div class="todo__left">
       <input class="todo__check" type="checkbox" name="" id="">
       <div class="todo__text">
@@ -103,6 +105,22 @@ delete
     </div>
   </div>`;
       container.insertAdjacentHTML('beforeend', html);
+    });
+  }
+
+  static displayDetails() {
+    const container = document.getElementById('todoContainer');
+    container.addEventListener('click', e => {
+      const todo = e.target.closest('.todo');
+      const todos = createTodo.unfinishedTodos;
+      if (!todo) return;
+      const todoIndex = todo.dataset.index;
+      const currentTodo = todos[todoIndex];
+      const todoText = todo.querySelector('.todo__title');
+      let html = `
+        <p class="todo__description">${currentTodo.description}</p>
+      `;
+      todoText.insertAdjacentHTML('afterend', html);
     });
   }
 }

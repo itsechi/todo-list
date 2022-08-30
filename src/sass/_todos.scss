@@ -60,4 +60,23 @@
   &__priority--high {
     background-color: #ff6b6b;
   }
+
+  &__description {
+    animation: animate-description .1s linear;
+  
+  }
 }
+
+
+@keyframes animate-description {
+	from {
+    transform: translateY(-100%);
+    opacity: 0;
+
+	}
+	to {
+    transform: translateY(0);
+    opacity: 1;
+	}
+}
+
