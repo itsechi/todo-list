@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "html {\n  box-sizing: border-box; }\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit;\n  margin: 0;\n  padding: 0; }\n\nbody {\n  font-family: 'Montserrat', sans-serif; }\n\na {\n  text-decoration: none;\n  color: black; }\n  a:hover {\n    border-bottom: 2px solid black; }\n\nli {\n  list-style: none; }\n\n.btn {\n  font-weight: 700;\n  font-size: 1rem;\n  cursor: pointer;\n  padding: 0.5rem 2rem; }\n\n.btn--primary {\n  outline: none;\n  border: none;\n  background-color: black;\n  color: white; }\n  .btn--primary:hover {\n    outline: 1px solid black;\n    outline-offset: 0.3rem; }\n\n.btn--secondary {\n  margin: 0.3rem;\n  margin-top: 1rem;\n  border: 2px solid black; }\n\ninput,\ntextarea,\nbutton,\nselect,\noption {\n  font-family: inherit; }\n\noption {\n  font-weight: 700; }\n\n.overlay {\n  background-color: rgba(0, 0, 0, 0.46);\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.icon {\n  cursor: pointer;\n  font-size: 1.8rem; }\n\n.icon--bold {\n  font-weight: 600; }\n\n.hidden {\n  display: none; }\n\n.header {\n  padding: 1.5rem;\n  display: flex;\n  align-items: center;\n  justify-content: space-between; }\n\n.logo {\n  display: flex; }\n  .logo__img {\n    width: 3rem;\n    height: auto;\n    margin-right: 1rem; }\n  .logo__text {\n    font-size: 2.5rem;\n    font-weight: 800; }\n\n.nav__link {\n  font-weight: 600;\n  font-size: 1rem; }\n\n.todo-form {\n  background-color: white;\n  height: 20rem;\n  width: 50rem;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 1rem;\n  position: absolute;\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2; }\n  .todo-form__header {\n    display: flex;\n    justify-content: space-between;\n    width: 100%;\n    margin-bottom: 1rem; }\n  .todo-form__form {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%; }\n  .todo-form__inputs {\n    background-color: #EFEFEF;\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    padding: 1rem;\n    margin-bottom: 1rem; }\n  .todo-form__text {\n    border: none;\n    outline: none;\n    background-color: #EFEFEF;\n    font-size: 1rem;\n    margin: 0.3rem; }\n  .todo-form__text--bold {\n    font-weight: 600; }\n  .todo-form__buttons {\n    display: flex;\n    justify-content: center; }\n  .todo-form.hidden {\n    display: none; }\n\n.todo-container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center; }\n\n.todo {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin: 1rem;\n  margin-top: 0;\n  padding: 1rem 1.5rem;\n  border: 1px solid black;\n  width: 40rem; }\n  .todo__left {\n    display: flex;\n    align-items: center; }\n  .todo__check {\n    margin-right: 1.5rem;\n    width: 1.5rem;\n    height: 1.5rem;\n    accent-color: black; }\n  .todo__title {\n    font-weight: 600;\n    font-size: 1rem;\n    margin-bottom: 0.2rem;\n    max-width: 30rem; }\n  .todo__date {\n    color: #78716C; }\n  .todo__priority {\n    display: inline-block;\n    width: 0.6rem;\n    height: 0.6rem;\n    border-radius: 50%;\n    margin-left: 0.5rem; }\n  .todo__priority--low {\n    background-color: #1dd1a1; }\n  .todo__priority--medium {\n    background-color: #feca57; }\n  .todo__priority--high {\n    background-color: #ff6b6b; }\n  .todo__description {\n    animation: animate-description .1s linear; }\n\n@keyframes animate-description {\n  from {\n    transform: translateY(-100%);\n    opacity: 0; }\n  to {\n    transform: translateY(0);\n    opacity: 1; } }\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n  box-sizing: border-box; }\n\n*,\n*::before,\n*::after {\n  box-sizing: inherit;\n  margin: 0;\n  padding: 0; }\n\nbody {\n  font-family: 'Montserrat', sans-serif; }\n\na {\n  text-decoration: none;\n  color: black; }\n  a:hover {\n    border-bottom: 2px solid black; }\n\nli {\n  list-style: none; }\n\n.btn {\n  font-weight: 700;\n  font-size: 1rem;\n  cursor: pointer;\n  padding: 0.5rem 2rem; }\n\n.btn--primary {\n  outline: none;\n  border: none;\n  background-color: black;\n  color: white; }\n  .btn--primary:hover {\n    outline: 1px solid black;\n    outline-offset: 0.3rem; }\n\n.btn--secondary {\n  margin: 0.3rem;\n  margin-top: 1rem;\n  border: 2px solid black; }\n\ninput,\ntextarea,\nbutton,\nselect,\noption {\n  font-family: inherit; }\n\noption {\n  font-weight: 700; }\n\n.overlay {\n  background-color: rgba(0, 0, 0, 0.46);\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  top: 0;\n  left: 0; }\n\n.icon {\n  cursor: pointer;\n  font-size: 1.8rem; }\n\n.icon--bold {\n  font-weight: 600; }\n\n.hidden {\n  display: none; }\n\n.header {\n  padding: 1.5rem;\n  display: flex;\n  align-items: center;\n  justify-content: space-between; }\n\n.logo {\n  display: flex; }\n  .logo__img {\n    width: 3rem;\n    height: auto;\n    margin-right: 1rem; }\n  .logo__text {\n    font-size: 2.5rem;\n    font-weight: 800; }\n\n.nav__link {\n  font-weight: 600;\n  font-size: 1rem; }\n\n.todo-form {\n  background-color: white;\n  height: 20rem;\n  width: 50rem;\n  margin: 0 auto;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  padding: 1rem;\n  position: absolute;\n  left: 50%;\n  transform: translateX(-50%);\n  z-index: 2; }\n  .todo-form__header {\n    display: flex;\n    justify-content: space-between;\n    width: 100%;\n    margin-bottom: 1rem; }\n  .todo-form__form {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    width: 100%; }\n  .todo-form__inputs {\n    background-color: #EFEFEF;\n    display: flex;\n    flex-direction: column;\n    width: 100%;\n    padding: 1rem;\n    margin-bottom: 1rem; }\n  .todo-form__text {\n    border: none;\n    outline: none;\n    background-color: #EFEFEF;\n    font-size: 1rem;\n    margin: 0.3rem; }\n  .todo-form__text--bold {\n    font-weight: 600; }\n  .todo-form__buttons {\n    display: flex;\n    justify-content: center; }\n  .todo-form.hidden {\n    display: none; }\n\n.todo-container {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center; }\n\n.todo {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin: 1rem;\n  margin-top: 0;\n  padding: 1rem 1.5rem;\n  border: 1px solid black;\n  width: 40rem; }\n  .todo__left {\n    display: flex;\n    align-items: center; }\n  .todo__check {\n    margin-right: 1.5rem;\n    width: 1.5rem;\n    height: 1.5rem;\n    accent-color: black; }\n  .todo__title {\n    font-weight: 600;\n    font-size: 1rem;\n    margin-bottom: 0.2rem;\n    max-width: 30rem; }\n  .todo__title--complete {\n    text-decoration: line-through;\n    font-style: italic;\n    color: #78716C; }\n  .todo__date {\n    color: #78716C; }\n  .todo__priority {\n    display: inline-block;\n    width: 0.6rem;\n    height: 0.6rem;\n    border-radius: 50%;\n    margin-left: 0.5rem; }\n  .todo__priority--low {\n    background-color: #1dd1a1; }\n  .todo__priority--medium {\n    background-color: #feca57; }\n  .todo__priority--high {\n    background-color: #ff6b6b; }\n  .todo__description {\n    animation: animate-description .1s linear; }\n\n@keyframes animate-description {\n  from {\n    transform: translateY(-100%);\n    opacity: 0; }\n  to {\n    transform: translateY(0);\n    opacity: 1; } }\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3461,7 +3461,7 @@ class UI {
     UI.createTodoForm();
     UI.displayTodos();
     UI.displayDetails();
-    UI.container = document.getElementById('todoContainer');
+    UI.markComplete();
   }
 
   static createTodoForm() {
@@ -3473,10 +3473,10 @@ class UI {
     const dueDateBtn = document.getElementById('dueDateBtn');
 
     // handlers
-    openTodoFormBtn.addEventListener('click', displayTodoForm.bind(UI));
+    openTodoFormBtn.addEventListener('click', displayTodoForm);
     overlay.addEventListener('click', closeTodoForm);
     closeTodoFormBtn.addEventListener('click', closeTodoForm);
-    addTodoBtn.addEventListener('click', addTodo.bind(UI));
+    addTodoBtn.addEventListener('click', addTodo);
 
     dueDateBtn.valueAsDate = new Date();
 
@@ -3484,7 +3484,6 @@ class UI {
     function displayTodoForm() {
       overlay.classList.remove('hidden');
       todoForm.classList.remove('hidden');
-      console.log(UI);
     }
 
     function closeTodoForm() {
@@ -3532,7 +3531,6 @@ class UI {
       'low'
     );
     todos.push(task1, task2, task3);
-    console.log(todos);
     //
     todos.forEach((todo, index) => {
       const today = (0,date_fns__WEBPACK_IMPORTED_MODULE_2__["default"])(new Date(), 'yyyy-MM-dd');
@@ -3575,6 +3573,16 @@ delete
       if (!todo) return;
       const todoText = todo.querySelector('.todo__description');
       todoText.classList.toggle('hidden');
+    });
+  }
+
+  static markComplete() {
+    const container = document.getElementById('todoContainer');
+    container.addEventListener('click', e => {
+      if (e.target.classList.contains('todo__check')) {
+        const todo = e.target.parentElement.querySelector('.todo__title');
+        todo.classList.toggle('todo__title--complete');
+      }
     });
   }
 }
