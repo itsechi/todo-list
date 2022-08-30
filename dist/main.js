@@ -3546,6 +3546,7 @@ class UI {
         }<span class="todo__priority todo__priority--${
         todo.priority
       }"></span></h3>
+      <p class="todo__description hidden">${todo.description}</p>
         <p class="todo__date">${today === todo.dueDate ? 'Today' : date}</p>
       </div>
     </div>
@@ -3565,16 +3566,15 @@ delete
   static displayDetails() {
     const container = document.getElementById('todoContainer');
     container.addEventListener('click', e => {
+      if (
+        e.target.classList.contains('todo__check') ||
+        e.target.classList.contains('icon')
+      )
+        return;
       const todo = e.target.closest('.todo');
-      const todos = _createTodo__WEBPACK_IMPORTED_MODULE_0__.createTodo.unfinishedTodos;
       if (!todo) return;
-      const todoIndex = todo.dataset.index;
-      const currentTodo = todos[todoIndex];
-      const todoText = todo.querySelector('.todo__title');
-      let html = `
-        <p class="todo__description">${currentTodo.description}</p>
-      `;
-      todoText.insertAdjacentHTML('afterend', html);
+      const todoText = todo.querySelector('.todo__description');
+      todoText.classList.toggle('hidden');
     });
   }
 }
