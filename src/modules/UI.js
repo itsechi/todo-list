@@ -7,7 +7,7 @@ export default class UI {
     UI.createTodoForm();
     UI.displayTodos();
     UI.displayDetails();
-    UI.container = document.getElementById('todoContainer');
+    UI.markComplete();
   }
 
   static createTodoForm() {
@@ -19,10 +19,10 @@ export default class UI {
     const dueDateBtn = document.getElementById('dueDateBtn');
 
     // handlers
-    openTodoFormBtn.addEventListener('click', displayTodoForm.bind(UI));
+    openTodoFormBtn.addEventListener('click', displayTodoForm);
     overlay.addEventListener('click', closeTodoForm);
     closeTodoFormBtn.addEventListener('click', closeTodoForm);
-    addTodoBtn.addEventListener('click', addTodo.bind(UI));
+    addTodoBtn.addEventListener('click', addTodo);
 
     dueDateBtn.valueAsDate = new Date();
 
@@ -30,7 +30,6 @@ export default class UI {
     function displayTodoForm() {
       overlay.classList.remove('hidden');
       todoForm.classList.remove('hidden');
-      console.log(UI);
     }
 
     function closeTodoForm() {
@@ -78,7 +77,6 @@ export default class UI {
       'low'
     );
     todos.push(task1, task2, task3);
-    console.log(todos);
     //
     todos.forEach((todo, index) => {
       const today = format(new Date(), 'yyyy-MM-dd');
@@ -121,6 +119,16 @@ delete
       if (!todo) return;
       const todoText = todo.querySelector('.todo__description');
       todoText.classList.toggle('hidden');
+    });
+  }
+
+  static markComplete() {
+    const container = document.getElementById('todoContainer');
+    container.addEventListener('click', e => {
+      if (e.target.classList.contains('todo__check')) {
+        const todo = e.target.parentElement.querySelector('.todo__title');
+        todo.classList.toggle('todo__title--complete');
+      }
     });
   }
 }

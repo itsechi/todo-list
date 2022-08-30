@@ -37,6 +37,12 @@
     max-width: 30rem;
   }
 
+  &__title--complete {
+    text-decoration: line-through;
+    font-style: italic;
+    color: #78716C;
+  }
+
   &__date {
     color: #78716C;
   }
@@ -63,20 +69,20 @@
 
   &__description {
     animation: animate-description .1s linear;
-  
+
   }
 }
 
 
 @keyframes animate-description {
-	from {
+  from {
     transform: translateY(-100%);
     opacity: 0;
 
-	}
-	to {
+  }
+
+  to {
     transform: translateY(0);
     opacity: 1;
-	}
+  }
 }
-
