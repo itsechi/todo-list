@@ -1,40 +1,36 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  devtool: false,
-  entry: "./src/index.js",
+  mode: 'development',
+  devtool: 'inline-source-map',
+  entry: './src/index.js',
   output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'main.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
-    assetModuleFilename: "img/[name][ext]",
+    assetModuleFilename: 'img/[name][ext]',
   },
   plugins: [
     new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: "src/template.html",
+      filename: 'index.html',
+      template: 'src/template.html',
     }),
   ],
   module: {
     rules: [
       {
         test: /\.html$/,
-        use: ["html-loader"]
+        use: ['html-loader'],
       },
       {
-        test:/\.scss$/,
-        use: [
-          'style-loader',
-          'css-loader',
-          'sass-loader'
-        ]
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
-    ]
+    ],
   },
 };

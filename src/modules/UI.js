@@ -2,15 +2,10 @@ import { createTodo } from './createTodo';
 import Todo from './todoConstructor'; // delete later
 import { format } from 'date-fns';
 
-export default class UI {
-  constructor() {
-    UI.createTodoForm();
-    UI.displayTodos();
-    UI.displayDetails();
-    UI.markComplete();
-  }
+const UI = (() => {
+  const container = document.getElementById('todoContainer');
 
-  static createTodoForm() {
+  function createTodoForm() {
     const openTodoFormBtn = document.getElementById('openTodoFormBtn');
     const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
     const overlay = document.getElementById('overlay');
@@ -24,12 +19,11 @@ export default class UI {
     closeTodoFormBtn.addEventListener('click', closeTodoForm);
     addTodoBtn.addEventListener('click', addTodo);
 
-    dueDateBtn.valueAsDate = new Date();
-
     // functions
     function displayTodoForm() {
       overlay.classList.remove('hidden');
       todoForm.classList.remove('hidden');
+      dueDateBtn.valueAsDate = new Date();
     }
 
     function closeTodoForm() {
@@ -46,12 +40,11 @@ export default class UI {
       e.preventDefault();
       createTodo.addTodo();
       closeTodoForm();
-      UI.displayTodos();
+      displayTodos();
     }
   }
 
-  static displayTodos() {
-    const container = document.getElementById('todoContainer');
+  function displayTodos() {
     container.innerHTML = '';
     const todos = createTodo.unfinishedTodos;
     // delete later
@@ -107,8 +100,7 @@ delete
     });
   }
 
-  static displayDetails() {
-    const container = document.getElementById('todoContainer');
+  function displayDetails() {
     container.addEventListener('click', e => {
       if (
         e.target.classList.contains('todo__check') ||
@@ -122,8 +114,7 @@ delete
     });
   }
 
-  static markComplete() {
-    const container = document.getElementById('todoContainer');
+  function markComplete() {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('todo__check')) {
         const todo = e.target.parentElement.querySelector('.todo__title');
@@ -131,4 +122,17 @@ delete
       }
     });
   }
-}
+
+  function editTodo() {}
+
+  function initialize() {
+    createTodoForm();
+    displayTodos();
+    displayDetails();
+    markComplete();
+  }
+
+  return { initialize };
+})();
+
+export default UI;
