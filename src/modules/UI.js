@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
+  const todos = createTodo.unfinishedTodos;
 
   function createTodoForm() {
     const openTodoFormBtn = document.getElementById('openTodoFormBtn');
@@ -46,30 +47,29 @@ const UI = (() => {
 
   function displayTodos() {
     container.innerHTML = '';
-    const todos = createTodo.unfinishedTodos;
     // delete later
-    const task1 = new Todo(
-      'Learn JavaScript',
-      'Finish the course and start working on the project',
-      '2022-08-29',
-      '',
-      'high'
-    );
-    const task2 = new Todo(
-      'Learn JavaScript',
-      'Finish the course and start working on the project',
-      '2022-08-28',
-      '',
-      'medium'
-    );
-    const task3 = new Todo(
-      'Learn JavaScript',
-      'Finish the course and start working on the project',
-      '2022-11-05',
-      '',
-      'low'
-    );
-    todos.push(task1, task2, task3);
+    // const task1 = new Todo(
+    //   'Learn JavaScript',
+    //   'Finish the course and start working on the project',
+    //   '2022-08-29',
+    //   '',
+    //   'high'
+    // );
+    // const task2 = new Todo(
+    //   'Learn JavaScript',
+    //   'Finish the course and start working on the project',
+    //   '2022-08-28',
+    //   '',
+    //   'medium'
+    // );
+    // const task3 = new Todo(
+    //   'Learn JavaScript',
+    //   'Finish the course and start working on the project',
+    //   '2022-11-05',
+    //   '',
+    //   'low'
+    // );
+    // todos.push(task1, task2, task3);
     //
     todos.forEach((todo, index) => {
       const today = format(new Date(), 'yyyy-MM-dd');
@@ -91,7 +91,7 @@ const UI = (() => {
     <span class="icon material-icons-outlined">
     edit
     </span>
-<span class="icon material-icons-outlined">
+<span class="delete icon material-icons-outlined">
 delete
 </span>
     </div>
@@ -123,13 +123,27 @@ delete
     });
   }
 
-  function editTodo() {}
+  function removeTodo() {
+    container.addEventListener('click', e => {
+      if (e.target.classList.contains('delete')) {
+        const todoIndex = e.target.closest('.todo').dataset.index;
+        const currTodo = todos[todoIndex];
+        console.log(todos[todoIndex]);
+        console.log(todoIndex);
+        console.log(currTodo);
+        todos.splice(todoIndex, 1);
+        console.log(todos);
+        displayTodos();
+      }
+    });
+  }
 
   function initialize() {
     createTodoForm();
     displayTodos();
     displayDetails();
     markComplete();
+    removeTodo();
   }
 
   return { initialize };
