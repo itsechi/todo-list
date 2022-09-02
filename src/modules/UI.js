@@ -47,6 +47,8 @@ const UI = (() => {
       const addTodoBtn = document.getElementById('addTodoBtn');
       const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
       const dueDateBtn = document.getElementById('dueDateBtn');
+      const title = document.getElementById('todoTitle');
+      title.focus();
       dueDateBtn.valueAsDate = new Date();
 
       // handlers
@@ -149,6 +151,7 @@ const UI = (() => {
         dueDate.value = currTodo.dueDate;
         project.value = currTodo.project;
         priority.value = currTodo.priority;
+        title.focus();
 
         function displayEditForm() {
           overlay.classList.remove('hidden');
