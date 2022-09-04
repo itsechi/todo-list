@@ -82,23 +82,48 @@ const UI = (() => {
       const today = format(new Date(), 'yyyy-MM-dd');
       const date = format(new Date(todo.dueDate), 'dd MMM yyyy');
       // prettier-ignore
-      const html = `
-      <div class="todo" data-index=${index}>
-        <div class="todo__left">
-          <input class="todo__check" type="checkbox" name="" id="">
-          <div class="todo__text">
-            <h3 class="todo__title">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
-            <p class="todo__description hidden">${todo.description}</p>
-            <p class="todo__date">${today === todo.dueDate ? 'Today' : date}</p>
+      if (todo.status === 'unfinished') {
+        const html = `
+        <div class="todo" data-index=${index}>
+          <div class="todo__left">
+            <input class="todo__check" type="checkbox">
+            <div class="todo__text">
+              <h3 class="todo__title">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
+              <p class="todo__description hidden">${todo.description}</p>
+              <p class="todo__date">${today === todo.dueDate ? 'Today' : date}</p>
+            </div>
+          </div>
+          <div class="todo__right">
+            <span class="edit icon material-icons-outlined">edit</span>
+            <span class="delete icon material-icons-outlined">delete</span>
           </div>
         </div>
-        <div class="todo__right">
-          <span class="edit icon material-icons-outlined">edit</span>
-          <span class="delete icon material-icons-outlined">delete</span>
-        </div>
-      </div>`;
+      `;
       container.insertAdjacentHTML('beforeend', html);
+      }
+
+      // prettier-ignore
+      if (todo.status === 'finished') {
+        const html = `
+        <div class="todo" data-index=${index}>
+          <div class="todo__left">
+            <input class="todo__check" type="checkbox" checked>
+            <div class="todo__text">
+              <h3 class="todo__title todo__title--complete">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
+              <p class="todo__description hidden">${todo.description}</p>
+              <p class="todo__date">${today === todo.dueDate ? 'Today' : date}</p>
+            </div>
+          </div>
+          <div class="todo__right">
+            <span class="edit icon material-icons-outlined">edit</span>
+            <span class="delete icon material-icons-outlined">delete</span>
+          </div>
+        </div>
+        `;
+        container.insertAdjacentHTML('beforeend', html);
+      }
     });
+    progressBar();
   }
 
   function displayDetails() {
@@ -118,16 +143,23 @@ const UI = (() => {
   function markComplete() {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('todo__check')) {
-        const todo = e.target.parentElement.querySelector('.todo__title');
-        todo.classList.toggle('todo__title--complete');
-        const finishedTodoIndex = e.target.closest('.todo').dataset.index;
-        const finishedTodo = todos[finishedTodoIndex];
-        if (todo.classList.contains('todo__title--complete')) {
-          finishedTodos.push(finishedTodo);
+        const todoTitle = e.target.parentElement.querySelector('.todo__title');
+        todoTitle.classList.toggle('todo__title--complete');
+        const todoIndex = e.target.closest('.todo').dataset.index;
+        const todo = todos[todoIndex];
+
+        if (todoTitle.classList.contains('todo__title--complete')) {
+          todo.status = 'finished';
+          finishedTodos.push(todo);
           progressBar();
         }
-        if (!todo.classList.contains('todo__title--complete')) {
-          finishedTodos.splice(finishedTodoIndex, 1);
+        if (!todoTitle.classList.contains('todo__title--complete')) {
+          todo.status = 'unfinished';
+          const findObject = finishedTodos.find(
+            finishedTodo => finishedTodo === todo
+          );
+          const findIndex = finishedTodos.indexOf(findObject);
+          finishedTodos.splice(findIndex, 1);
           progressBar();
         }
       }

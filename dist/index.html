@@ -1,1 +1,48 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"><title>ToDoList</title><script defer="defer" src="main.js"></script></head><body><header class="header"><div class="logo"><img class="logo__img" src="img/logo.svg" alt=""><h1 class="logo__text">ToDoList</h1></div><nav class="nav"><ul><li class="nav__link"><a href="#">HOME</a></li></ul></nav><button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button></header><main class="main"><div class="main__header"><h2 class="main__title">HOME</h2><div class="main__progress"><div class="main__progress-bar" id="progress"></div></div></div><div class="overlay hidden" id="overlay"></div><div class="form hidden" id="todoForm"></div><div class="todo-container" id="todoContainer"></div></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <title>ToDoList</title>
+<script defer src="main.js"></script></head>
+
+<body>
+  <header class="header">
+
+    <div class="logo">
+      <img class="logo__img" src="img/logo.svg" alt="">
+      <h1 class="logo__text">ToDoList</h1>
+    </div>
+
+    <nav class="nav">
+      <ul>
+        <li class="nav__link"><a href="#">HOME</a></li>
+      </ul>
+    </nav>
+    <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
+  </header>
+
+  <main class="main">
+    <div class="main__header">
+      <h2 class="main__title">HOME</h2>
+      <div class="main__progress">
+        <div class="main__progress-bar" id="progress"></div>
+      </div>
+      <!-- <progress id="progress" value="0" max="100"></progress> -->
+    </div>
+    <div class="overlay hidden" id="overlay"></div>
+
+    <div class="form hidden" id="todoForm"></div>
+
+    <div class="todo-container" id="todoContainer"></div>
+  </main>
+
+</body>
+
+</html>
