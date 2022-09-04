@@ -4,13 +4,19 @@ import UI from './UI';
 const allTodos = createTodo.unfinishedTodos;
 
 function setLocalStorage() {
-  const data = JSON.stringify(allTodos);
-  localStorage.setItem('todoArr', data);
+  const allTodosStorage = JSON.stringify(allTodos);
+  const finishedTodosStorage = JSON.stringify(UI.finishedTodos);
+  console.log(finishedTodosStorage);
+  localStorage.setItem('todoArr', allTodosStorage);
+  localStorage.setItem('finishedArr', finishedTodosStorage);
 }
 
 function getLocalStorage() {
-  const data = JSON.parse(localStorage.getItem('todoArr'));
-  data.forEach(todo => allTodos.push(todo));
+  const allTodosStorage = JSON.parse(localStorage.getItem('todoArr'));
+  const finishedTodosStorage = JSON.parse(localStorage.getItem('finishedArr'));
+  if (!finishedTodosStorage || !allTodosStorage) return;
+  allTodosStorage.forEach(todo => allTodos.push(todo));
+  finishedTodosStorage.forEach(todo => UI.finishedTodos.push(todo));
   UI.displayTodos();
 }
 

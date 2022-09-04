@@ -129,6 +129,7 @@ const UI = (() => {
         if (todoTitle.classList.contains('todo__title--complete')) {
           todo.status = 'finished';
           finishedTodos.push(todo);
+          setLocalStorage();
           progressBar();
         }
         if (!todoTitle.classList.contains('todo__title--complete')) {
@@ -138,6 +139,7 @@ const UI = (() => {
           );
           const findIndex = finishedTodos.indexOf(findObject);
           finishedTodos.splice(findIndex, 1);
+          setLocalStorage();
           progressBar();
         }
       }
@@ -249,7 +251,7 @@ const UI = (() => {
     getLocalStorage();
   }
 
-  return { initialize, displayTodos };
+  return { initialize, displayTodos, finishedTodos };
 })();
 
 export default UI;
