@@ -1,4 +1,4 @@
-import Todo from './todoConstructor';
+import Todo from './Todo';
 
 export const createTodo = (() => {
   const unfinishedTodos = [];
