@@ -1,9 +1,11 @@
 import { createTodo } from './createTodo';
 import { format } from 'date-fns';
+import { getLocalStorage } from './storage';
+import { setLocalStorage } from './storage';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
-  let todos = createTodo.unfinishedTodos;
+  const todos = createTodo.unfinishedTodos;
   const finishedTodos = [];
   const overlay = document.getElementById('overlay');
   const todoForm = document.getElementById('todoForm');
@@ -178,6 +180,7 @@ const UI = (() => {
     });
   }
 
+  function idk(e) {}
   function createEditForm() {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('edit')) {
@@ -262,17 +265,6 @@ const UI = (() => {
     bar.style.width = width + '%';
   }
 
-  function setLocalStorage() {
-    const data = JSON.stringify(todos);
-    localStorage.setItem('todoArr', data);
-  }
-
-  function getLocalStorage() {
-    const data = JSON.parse(localStorage.getItem('todoArr'));
-    data.forEach(todo => todos.push(todo));
-    displayTodos();
-  }
-
   function initialize() {
     createTodoForm();
     displayTodos();
@@ -283,7 +275,7 @@ const UI = (() => {
     getLocalStorage();
   }
 
-  return { initialize };
+  return { initialize, displayTodos };
 })();
 
 export default UI;
