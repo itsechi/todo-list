@@ -1,10 +1,10 @@
 import { createTodo } from './createTodo';
-import Todo from './todoConstructor'; // delete later
 import { format } from 'date-fns';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
   const todos = createTodo.unfinishedTodos;
+  const finishedTodos = [];
   const overlay = document.getElementById('overlay');
   const todoForm = document.getElementById('todoForm');
 
@@ -120,6 +120,16 @@ const UI = (() => {
       if (e.target.classList.contains('todo__check')) {
         const todo = e.target.parentElement.querySelector('.todo__title');
         todo.classList.toggle('todo__title--complete');
+        const finishedTodoIndex = e.target.closest('.todo').dataset.index;
+        const finishedTodo = todos[finishedTodoIndex];
+        if (todo.classList.contains('todo__title--complete')) {
+          finishedTodos.push(finishedTodo);
+          progressBar();
+        }
+        if (!todo.classList.contains('todo__title--complete')) {
+          finishedTodos.splice(finishedTodoIndex, 1);
+          progressBar();
+        }
       }
     });
   }
@@ -210,6 +220,12 @@ const UI = (() => {
         }
       }
     });
+  }
+
+  function progressBar() {
+    let width = (finishedTodos.length / todos.length) * 100;
+    const bar = document.getElementById('progress');
+    bar.style.width = width + '%';
   }
 
   function initialize() {

@@ -13,9 +13,9 @@
   justify-content: space-between;
   margin: 1rem;
   margin-top: 0;
-  // background-color: $grey;
+  background-color: $grey;
   padding: 1rem 1.5rem;
-  border: 1px solid black;
+  // border: 1px solid black;
   width: 40rem;
 
   &__left {
@@ -78,7 +78,6 @@
   from {
     transform: translateY(-100%);
     opacity: 0;
-
   }
 
   to {
