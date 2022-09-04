@@ -1,16 +1,16 @@
 import { createTodo } from './createTodo';
 import UI from './UI';
 
-const todos = createTodo.unfinishedTodos;
+const allTodos = createTodo.unfinishedTodos;
 
 function setLocalStorage() {
-  const data = JSON.stringify(todos);
+  const data = JSON.stringify(allTodos);
   localStorage.setItem('todoArr', data);
 }
 
 function getLocalStorage() {
   const data = JSON.parse(localStorage.getItem('todoArr'));
-  data.forEach(todo => todos.push(todo));
+  data.forEach(todo => allTodos.push(todo));
   UI.displayTodos();
 }
 

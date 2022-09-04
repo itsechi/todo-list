@@ -5,10 +5,10 @@ import { setLocalStorage } from './storage';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
-  const todos = createTodo.unfinishedTodos;
-  const finishedTodos = [];
   const overlay = document.getElementById('overlay');
   const todoForm = document.getElementById('todoForm');
+  const allTodos = createTodo.unfinishedTodos;
+  const finishedTodos = [];
 
   function createTodoForm() {
     const openTodoFormBtn = document.getElementById('openTodoFormBtn');
@@ -48,12 +48,9 @@ const UI = (() => {
 
       const addTodoBtn = document.getElementById('addTodoBtn');
       const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
-      const dueDateBtn = document.getElementById('dueDateBtn');
-      const title = document.getElementById('todoTitle');
-      title.focus();
-      dueDateBtn.valueAsDate = new Date();
+      document.getElementById('dueDateBtn').valueAsDate = new Date();
+      document.getElementById('todoTitle').focus();
 
-      // handlers
       overlay.addEventListener('click', closeTodoForm);
       closeTodoFormBtn.addEventListener('click', closeTodoForm);
       addTodoBtn.addEventListener('click', addTodo);
@@ -81,38 +78,17 @@ const UI = (() => {
 
   function displayTodos() {
     container.innerHTML = '';
-    todos.forEach((todo, index) => {
+    allTodos.forEach((todo, index) => {
       const today = format(new Date(), 'yyyy-MM-dd');
       const date = format(new Date(todo.dueDate), 'dd MMM yyyy');
-      // prettier-ignore
-      if (todo.status === 'unfinished') {
-        const html = `
-        <div class="todo" data-index=${index}>
-          <div class="todo__left">
-            <input class="todo__check" type="checkbox">
-            <div class="todo__text">
-              <h3 class="todo__title">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
-              <p class="todo__description hidden">${todo.description}</p>
-              <p class="todo__date">${today === todo.dueDate ? 'Today' : date}</p>
-            </div>
-          </div>
-          <div class="todo__right">
-            <span class="edit icon material-icons-outlined">edit</span>
-            <span class="delete icon material-icons-outlined">delete</span>
-          </div>
-        </div>
-      `;
-      container.insertAdjacentHTML('beforeend', html);
-      }
 
       // prettier-ignore
-      if (todo.status === 'finished') {
-        const html = `
+      const html = `
         <div class="todo" data-index=${index}>
           <div class="todo__left">
-            <input class="todo__check" type="checkbox" checked>
+            <input class="todo__check" type="checkbox" ${todo.status === 'finished' ? 'checked' : ''}>
             <div class="todo__text">
-              <h3 class="todo__title todo__title--complete">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
+              <h3 class="todo__title  ${todo.status === 'finished' ? 'todo__title--complete' : ''}">${todo.title}<span class="todo__priority todo__priority--${todo.priority}"></span></h3>
               <p class="todo__description hidden">${todo.description}</p>
               <p class="todo__date">${today === todo.dueDate ? 'Today' : date}</p>
             </div>
@@ -123,8 +99,7 @@ const UI = (() => {
           </div>
         </div>
         `;
-        container.insertAdjacentHTML('beforeend', html);
-      }
+      container.insertAdjacentHTML('beforeend', html);
     });
     progressBar();
   }
@@ -138,8 +113,8 @@ const UI = (() => {
         return;
       const todo = e.target.closest('.todo');
       if (!todo) return;
-      const todoText = todo.querySelector('.todo__description');
-      todoText.classList.toggle('hidden');
+      const todoDescription = todo.querySelector('.todo__description');
+      todoDescription.classList.toggle('hidden');
     });
   }
 
@@ -149,7 +124,7 @@ const UI = (() => {
         const todoTitle = e.target.parentElement.querySelector('.todo__title');
         todoTitle.classList.toggle('todo__title--complete');
         const todoIndex = e.target.closest('.todo').dataset.index;
-        const todo = todos[todoIndex];
+        const todo = allTodos[todoIndex];
 
         if (todoTitle.classList.contains('todo__title--complete')) {
           todo.status = 'finished';
@@ -173,19 +148,18 @@ const UI = (() => {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('delete')) {
         const todoIndex = e.target.closest('.todo').dataset.index;
-        todos.splice(todoIndex, 1);
+        allTodos.splice(todoIndex, 1);
         displayTodos();
         setLocalStorage();
       }
     });
   }
 
-  function idk(e) {}
   function createEditForm() {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('edit')) {
         const todoIndex = e.target.closest('.todo').dataset.index;
-        const currTodo = todos[todoIndex];
+        const currTodo = allTodos[todoIndex];
         displayEditForm();
 
         const title = document.getElementById('todoTitle');
@@ -260,7 +234,7 @@ const UI = (() => {
   }
 
   function progressBar() {
-    let width = (finishedTodos.length / todos.length) * 100;
+    let width = (finishedTodos.length / allTodos.length) * 100;
     const bar = document.getElementById('progress');
     bar.style.width = width + '%';
   }
