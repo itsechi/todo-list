@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
-  const todos = createTodo.unfinishedTodos;
+  let todos = createTodo.unfinishedTodos;
   const finishedTodos = [];
   const overlay = document.getElementById('overlay');
   const todoForm = document.getElementById('todoForm');
@@ -73,6 +73,7 @@ const UI = (() => {
       createTodo.addTodo();
       closeTodoForm();
       displayTodos();
+      setLocalStorage();
     }
   }
 
@@ -172,6 +173,7 @@ const UI = (() => {
         const todoIndex = e.target.closest('.todo').dataset.index;
         todos.splice(todoIndex, 1);
         displayTodos();
+        setLocalStorage();
       }
     });
   }
@@ -260,6 +262,17 @@ const UI = (() => {
     bar.style.width = width + '%';
   }
 
+  function setLocalStorage() {
+    const data = JSON.stringify(todos);
+    localStorage.setItem('todoArr', data);
+  }
+
+  function getLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('todoArr'));
+    data.forEach(todo => todos.push(todo));
+    displayTodos();
+  }
+
   function initialize() {
     createTodoForm();
     displayTodos();
@@ -267,6 +280,7 @@ const UI = (() => {
     markComplete();
     removeTodo();
     createEditForm();
+    getLocalStorage();
   }
 
   return { initialize };
