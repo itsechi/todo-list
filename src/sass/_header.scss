@@ -21,12 +21,10 @@
 }
 
 .nav {
-  &__link {
-    font-weight: 600;
-    font-size: 1rem;
+  & ul {
+    display: flex;
   }
 }
-
 
 .main {
   &__header {

@@ -43,7 +43,7 @@ li {
   color: white;
 
   &:hover {
-    outline: 1px solid black;
+    outline: 2px solid black;
     outline-offset: 0.3rem;
   }
 }
@@ -52,6 +52,16 @@ li {
   margin: 0.3rem;
   margin-top: 1rem;
   border: 2px solid black;
+}
+
+.btn--tertiary {
+  border: none;
+  background: none;
+
+  &:hover {
+    outline: 2px solid black;
+    outline-offset: -0.1rem;
+  }
 }
 
 input,

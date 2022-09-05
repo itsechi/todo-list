@@ -22,7 +22,9 @@
 
     <nav class="nav">
       <ul>
-        <li class="nav__link"><a href="#">HOME</a></li>
+        <li><button class="btn btn--tertiary" id="showHomeBtn">HOME</button></li>
+        <li><button class="btn btn--tertiary" id="showTodayBtn">TODAY</button></li>
+        <li><button class="btn btn--tertiary">PROJECTS</button></li>
       </ul>
     </nav>
     <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
@@ -30,11 +32,10 @@
 
   <main class="main">
     <div class="main__header">
-      <h2 class="main__title">HOME</h2>
+      <h2 class="main__title" id="projectTitle">HOME</h2>
       <div class="main__progress">
         <div class="main__progress-bar" id="progress"></div>
       </div>
-      <!-- <progress id="progress" value="0" max="100"></progress> -->
     </div>
     <div class="overlay hidden" id="overlay"></div>
 

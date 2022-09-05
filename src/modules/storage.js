@@ -6,7 +6,6 @@ const allTodos = createTodo.unfinishedTodos;
 function setLocalStorage() {
   const allTodosStorage = JSON.stringify(allTodos);
   const finishedTodosStorage = JSON.stringify(UI.finishedTodos);
-  console.log(finishedTodosStorage);
   localStorage.setItem('todoArr', allTodosStorage);
   localStorage.setItem('finishedArr', finishedTodosStorage);
 }

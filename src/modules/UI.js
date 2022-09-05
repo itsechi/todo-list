@@ -9,6 +9,7 @@ const UI = (() => {
   const todoForm = document.getElementById('todoForm');
   const allTodos = createTodo.unfinishedTodos;
   const finishedTodos = [];
+  let currentDisplay = 'home';
 
   function createTodoForm() {
     const openTodoFormBtn = document.getElementById('openTodoFormBtn');
@@ -81,9 +82,12 @@ const UI = (() => {
     allTodos.forEach((todo, index) => {
       const today = format(new Date(), 'yyyy-MM-dd');
       const date = format(new Date(todo.dueDate), 'dd MMM yyyy');
-
-      // prettier-ignore
-      const html = `
+      if (
+        (currentDisplay === 'today' && todo.dueDate === today) ||
+        currentDisplay === 'home'
+      ) {
+        // prettier-ignore
+        const html = `
         <div class="todo" data-index=${index}>
           <div class="todo__left">
             <input class="todo__check" type="checkbox" ${todo.status === 'finished' ? 'checked' : ''}>
@@ -99,7 +103,8 @@ const UI = (() => {
           </div>
         </div>
         `;
-      container.insertAdjacentHTML('beforeend', html);
+        container.insertAdjacentHTML('beforeend', html);
+      }
     });
     progressBar();
   }
@@ -237,9 +242,42 @@ const UI = (() => {
   }
 
   function progressBar() {
-    let width = (finishedTodos.length / allTodos.length) * 100;
+    // let width = (finishedTodos.length / allTodos.length) * 100;
+    const today = format(new Date(), 'yyyy-MM-dd');
+    const todayTodos = allTodos.filter(todo => todo.dueDate === today);
+    const finishedTodayTodos = finishedTodos.filter(
+      todo => todo.dueDate === today
+    );
+    console.log(finishedTodayTodos);
+    let width =
+      currentDisplay === 'today'
+        ? (finishedTodayTodos.length / todayTodos.length) * 100
+        : (finishedTodos.length / allTodos.length) * 100;
     const bar = document.getElementById('progress');
     bar.style.width = width + '%';
+  }
+
+  const showTodayBtn = document.getElementById('showTodayBtn');
+  showTodayBtn.addEventListener('click', showToday);
+
+  const showHomeBtn = document.getElementById('showHomeBtn');
+  showHomeBtn.addEventListener('click', showHome);
+
+  const projectTitle = document.getElementById('projectTitle');
+
+  function showToday() {
+    currentDisplay = 'today';
+    projectTitle.textContent = 'TODAY';
+    console.log(currentDisplay);
+    displayTodos();
+    progressBar();
+  }
+
+  function showHome() {
+    currentDisplay = 'home';
+    projectTitle.textContent = 'HOME';
+    console.log(currentDisplay);
+    displayTodos();
   }
 
   function initialize() {
