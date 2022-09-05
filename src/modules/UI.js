@@ -230,6 +230,7 @@ const UI = (() => {
           currTodo.priority = priority.value;
           closeEditForm();
           displayTodos();
+          setLocalStorage();
         }
       }
     });
