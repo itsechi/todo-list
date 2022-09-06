@@ -1,7 +1,7 @@
 import { createTodo } from './createTodo';
 import { format } from 'date-fns';
-import { getLocalStorage } from './storage';
-import { setLocalStorage } from './storage';
+import { getLocalStorage } from './createStorage';
+import { setLocalStorage } from './createStorage';
 import Project from './Project';
 import Forms from './Forms';
 
@@ -34,7 +34,7 @@ const UI = (() => {
         e.preventDefault();
         createTodo.addTodo();
         todoForm.closeForm();
-        displayTodos();
+        displayTodos(currentDisplay);
         setLocalStorage();
       }
     });
@@ -51,7 +51,6 @@ const UI = (() => {
         currentDisplay === 'home' ||
         (currentDisplay === projectName && todo.project === projectName)
       ) {
-        // prettier-ignore
         const html = `
         <div class="todo" data-index=${index}>
           <div class="todo__left">
@@ -109,7 +108,7 @@ const UI = (() => {
           todo.status = 'finished';
           finishedTodos.push(todo);
           setLocalStorage();
-          progressBar();
+          progressBar(currentDisplay);
         }
         if (!todoTitle.classList.contains('todo__title--complete')) {
           todo.status = 'unfinished';
@@ -117,14 +116,14 @@ const UI = (() => {
             const findObject = finishedTodos.find(
               finishedTodo => finishedTodo === todo
             );
-            console.log(findObject);
 
             const findIndex = finishedTodos.indexOf(findObject);
             console.log(todo);
             finishedTodos.splice(findIndex, 1);
           }
           setLocalStorage();
-          progressBar();
+          progressBar(currentDisplay);
+          console.log(currentDisplay);
         }
       }
     });
@@ -135,6 +134,7 @@ const UI = (() => {
       if (e.target.classList.contains('delete')) {
         const todoIndex = e.target.closest('.todo').dataset.index;
         const todo = allTodos[todoIndex];
+        console.log(currentDisplay);
 
         if (todo.status === 'finished') {
           const findObject = finishedTodos.find(
@@ -145,7 +145,7 @@ const UI = (() => {
         }
 
         allTodos.splice(todoIndex, 1);
-        displayTodos();
+        displayTodos(currentDisplay);
         setLocalStorage();
         progressBar();
       }
@@ -190,7 +190,7 @@ const UI = (() => {
           currTodo.project = project.value;
           currTodo.priority = priority.value;
           editForm.closeForm();
-          displayTodos();
+          displayTodos(currentDisplay);
           setLocalStorage();
         }
       }
@@ -251,40 +251,29 @@ const UI = (() => {
   }
 
   // DISPLAY TABS
-  const currentTab = document.getElementById('currentTab');
-
   const showTodayBtn = document.getElementById('showTodayBtn');
-  showTodayBtn.addEventListener('click', showToday);
+  showTodayBtn.addEventListener('click', () => {
+    showTab('today');
+  });
 
   const showHomeBtn = document.getElementById('showHomeBtn');
-  showHomeBtn.addEventListener('click', showHome);
+  showHomeBtn.addEventListener('click', () => {
+    showTab('home');
+  });
 
   const projectSelect = document.getElementById('projectSelect');
   projectSelect.addEventListener('change', () => {
-    showProject(projectSelect.value);
+    showTab(projectSelect.value);
     projectSelect.value = '';
   });
 
-  function showToday() {
-    currentDisplay = 'today';
-    currentTab.textContent = 'TODAY';
-    displayTodos();
-  }
-
-  function showHome() {
-    currentDisplay = 'home';
-    currentTab.textContent = 'HOME';
-    displayTodos();
-  }
-
-  function showProject(projectName) {
+  function showTab(projectName) {
     currentDisplay = projectName;
-    currentTab.textContent = projectName;
+    currentTab.textContent = projectName.toUpperCase();
     displayTodos(projectName);
   }
 
   function progressBar(projectName) {
-    // let width = (finishedTodos.length / allTodos.length) * 100;
     const today = format(new Date(), 'yyyy-MM-dd');
     const todayTodos = allTodos.filter(todo => todo.dueDate === today);
     const finishedTodayTodos = finishedTodos.filter(
@@ -294,15 +283,14 @@ const UI = (() => {
     const finishedProjectTodos = finishedTodos.filter(
       todo => todo.project === projectName
     );
-
+    console.log(currentDisplay);
     let width =
       currentDisplay === 'today'
         ? (finishedTodayTodos.length / todayTodos.length) * 100
-        : currentDisplay === projectName
-        ? (finishedProjectTodos.length / projectTodos.length) * 100
         : currentDisplay === 'home'
         ? (finishedTodos.length / allTodos.length) * 100
-        : 0;
+        : (finishedProjectTodos.length / projectTodos.length) * 100;
+
     if (isNaN(width)) width = 0;
     const bar = document.getElementById('progress');
     bar.style.width = width + '%';
