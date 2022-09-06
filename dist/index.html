@@ -24,15 +24,20 @@
       <ul>
         <li><button class="btn btn--tertiary" id="showHomeBtn">HOME</button></li>
         <li><button class="btn btn--tertiary" id="showTodayBtn">TODAY</button></li>
-        <li><button class="btn btn--tertiary">PROJECTS</button></li>
+        <li><select class="btn btn--tertiary" id="projectSelect">
+          <option disabled selected value>PROJECTS</option>
+        </select></li>
       </ul>
     </nav>
-    <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
+    <div class="nav__buttons">
+      <button class="btn btn--primary" id="openProjectFormBtn">ADD PROJECT</button>
+      <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
+    </div>
   </header>
 
   <main class="main">
     <div class="main__header">
-      <h2 class="main__title" id="projectTitle">HOME</h2>
+      <h2 class="main__title" id="currentTab">HOME</h2>
       <div class="main__progress">
         <div class="main__progress-bar" id="progress"></div>
       </div>

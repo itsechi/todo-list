@@ -2,6 +2,7 @@ import { createTodo } from './createTodo';
 import { format } from 'date-fns';
 import { getLocalStorage } from './storage';
 import { setLocalStorage } from './storage';
+import Project from './Project';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
@@ -11,6 +12,7 @@ const UI = (() => {
   const finishedTodos = [];
   let currentDisplay = 'home';
 
+  // ADD TODO
   function createTodoForm() {
     const openTodoFormBtn = document.getElementById('openTodoFormBtn');
     openTodoFormBtn.addEventListener('click', displayTodoForm);
@@ -77,6 +79,7 @@ const UI = (() => {
     }
   }
 
+  // DISPLAY TODO
   function displayTodos() {
     container.innerHTML = '';
     allTodos.forEach((todo, index) => {
@@ -109,6 +112,7 @@ const UI = (() => {
     progressBar();
   }
 
+  // INTERACTIONS
   function displayDetails() {
     container.addEventListener('click', e => {
       if (
@@ -162,6 +166,7 @@ const UI = (() => {
     });
   }
 
+  // EDIT TODO
   function createEditForm() {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('edit')) {
@@ -217,6 +222,7 @@ const UI = (() => {
 
           // handlers
           closeEditBtn.addEventListener('click', closeEditForm);
+          overlay.addEventListener('click', closeEditForm);
           editTodoBtn.addEventListener('click', pushEdit);
         }
 
@@ -241,6 +247,76 @@ const UI = (() => {
     });
   }
 
+  // PROJECTS
+  const openProjectFormBtn = document.getElementById('openProjectFormBtn');
+  openProjectFormBtn.addEventListener('click', displayProjectForm);
+
+  function displayProjectForm() {
+    overlay.classList.remove('hidden');
+    todoForm.classList.remove('hidden');
+    todoForm.classList.add('form--small');
+
+    const html = `
+          <div class="form__header">
+            <h2 class="form__title">ADD PROJECT</h2>
+            <span class="icon icon--bold material-icons-outlined" id="closeProjectFormBtn">close</span>
+          </div>
+
+          <form class="form__form">
+            <div class="form__inputs">
+              <input class="form__text form__text--bold" type="text" placeholder="Title of the project" id="projectTitle">
+            </div>
+            <button class="btn btn--primary" id="addProjectBtn">ADD PROJECT</button>
+          </form>`;
+    todoForm.innerHTML = html;
+
+    const addProjectBtn = document.querySelector('#addProjectBtn');
+    const closeProjectFormBtn = document.querySelector('#closeProjectFormBtn');
+
+    // handlers
+    closeProjectFormBtn.addEventListener('click', closeProjectForm);
+    overlay.addEventListener('click', closeProjectForm);
+    addProjectBtn.addEventListener('click', addProject);
+
+    function closeProjectForm() {
+      overlay.classList.add('hidden');
+      todoForm.classList.add('hidden');
+      todoForm.innerHTML = '';
+    }
+
+    function addProject(e) {
+      e.preventDefault();
+      const projectTitle = document.querySelector('#projectTitle').value;
+      const project = new Project(projectTitle);
+      project.addProject();
+      closeProjectForm();
+    }
+  }
+
+  // DISPLAY TABS
+  const currentTab = document.getElementById('currentTab');
+
+  const showTodayBtn = document.getElementById('showTodayBtn');
+  showTodayBtn.addEventListener('click', showToday);
+
+  const showHomeBtn = document.getElementById('showHomeBtn');
+  showHomeBtn.addEventListener('click', showHome);
+
+  function showToday() {
+    currentDisplay = 'today';
+    currentTab.textContent = 'TODAY';
+    console.log(currentDisplay);
+    displayTodos();
+    progressBar();
+  }
+
+  function showHome() {
+    currentDisplay = 'home';
+    currentTab.textContent = 'HOME';
+    console.log(currentDisplay);
+    displayTodos();
+  }
+
   function progressBar() {
     // let width = (finishedTodos.length / allTodos.length) * 100;
     const today = format(new Date(), 'yyyy-MM-dd');
@@ -255,29 +331,6 @@ const UI = (() => {
         : (finishedTodos.length / allTodos.length) * 100;
     const bar = document.getElementById('progress');
     bar.style.width = width + '%';
-  }
-
-  const showTodayBtn = document.getElementById('showTodayBtn');
-  showTodayBtn.addEventListener('click', showToday);
-
-  const showHomeBtn = document.getElementById('showHomeBtn');
-  showHomeBtn.addEventListener('click', showHome);
-
-  const projectTitle = document.getElementById('projectTitle');
-
-  function showToday() {
-    currentDisplay = 'today';
-    projectTitle.textContent = 'TODAY';
-    console.log(currentDisplay);
-    displayTodos();
-    progressBar();
-  }
-
-  function showHome() {
-    currentDisplay = 'home';
-    projectTitle.textContent = 'HOME';
-    console.log(currentDisplay);
-    displayTodos();
   }
 
   function initialize() {
