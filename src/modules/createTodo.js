@@ -11,8 +11,16 @@ export const createTodo = (() => {
     const priority = document.getElementById('priorityBtn').value;
 
     if (!title || title.trim().length === 0) return;
-    const todo = new Todo(title, description, dueDate, project, priority, 'unfinished');
+    const todo = new Todo(
+      title,
+      description,
+      dueDate,
+      project,
+      priority,
+      'unfinished'
+    );
     unfinishedTodos.push(todo);
+    console.log(todo);
   }
   return { addTodo, unfinishedTodos };
 })();
