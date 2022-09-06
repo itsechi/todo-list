@@ -20,7 +20,6 @@ export const createTodo = (() => {
       'unfinished'
     );
     unfinishedTodos.push(todo);
-    console.log(todo);
   }
   return { addTodo, unfinishedTodos };
 })();

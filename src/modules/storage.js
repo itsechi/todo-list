@@ -20,7 +20,6 @@ function getLocalStorage() {
   allTodosStorage.forEach(todo => allTodos.push(todo));
   finishedTodosStorage.forEach(todo => UI.finishedTodos.push(todo));
   projectsStorage.forEach(project => UI.projects.push(project));
-  console.log(UI.projects);
   UI.displayTodos();
 }
 

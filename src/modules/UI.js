@@ -3,87 +3,41 @@ import { format } from 'date-fns';
 import { getLocalStorage } from './storage';
 import { setLocalStorage } from './storage';
 import Project from './Project';
+import Forms from './Forms';
 
 const UI = (() => {
   const container = document.getElementById('todoContainer');
   const overlay = document.getElementById('overlay');
-  const todoForm = document.getElementById('todoForm');
+  const form = document.getElementById('todoForm');
   const allTodos = createTodo.unfinishedTodos;
   const finishedTodos = [];
   const projects = [];
   let currentDisplay = 'home';
 
-  // ADD TODO
   function createTodoForm() {
     const openTodoFormBtn = document.getElementById('openTodoFormBtn');
-    openTodoFormBtn.addEventListener('click', displayTodoForm);
-
-    // functions
-    function displayTodoForm() {
-      overlay.classList.remove('hidden');
-      todoForm.classList.remove('hidden');
-
-      const html = `
-      <div class="form__header">
-        <h2 class="form__title">NEW TASK</h2>
-        <span class="icon icon--bold material-icons-outlined" id="closeTodoFormBtn">close</span>
-      </div>
-
-      <form class="form__form">
-        <div class="form__inputs">
-          <input class="form__text form__text--bold" type="text" placeholder="Title of the task" id="todoTitle">
-          <textarea class="form__text" rows="3" cols="0" placeholder="Description" id="todoDescription"></textarea>
-          <div class="form__buttons">
-            <input class="btn btn--secondary" type="date" id="dueDateBtn"></button>
-            <select class="btn btn--secondary" id="projectBtn">
-              <option disabled selected value>PROJECT</option>
-            </select>
-            <select class="btn btn--secondary" id="priorityBtn">
-              <option disabled selected value>PRIORITY</option>
-              <option value="high">HIGH</option>
-              <option value="medium">MEDIUM</option>
-              <option value="low">LOW</option>
-            </select>
-          </div>
-        </div>
-        <button class="btn btn--primary" id="addTodoBtn">ADD TASK</button>
-      </form>`;
-      todoForm.innerHTML = html;
-
-      projects.forEach(project => {
-        const projectSelect = document.getElementById('projectBtn');
-        const html = `<option value="${project.name}">${project.name}</option>`;
-        projectSelect.insertAdjacentHTML('beforeend', html);
-      });
-
-      const addTodoBtn = document.getElementById('addTodoBtn');
-      const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
+    openTodoFormBtn.addEventListener('click', () => {
+      const todoForm = new Forms();
+      todoForm.displayForm('add');
       document.getElementById('dueDateBtn').valueAsDate = new Date();
       document.getElementById('todoTitle').focus();
 
-      overlay.addEventListener('click', closeTodoForm);
-      closeTodoFormBtn.addEventListener('click', closeTodoForm);
+      // handlers
+      const addTodoBtn = document.getElementById('addTodoBtn');
+      const closeTodoFormBtn = document.getElementById('closeTodoFormBtn');
+      overlay.addEventListener('click', () => todoForm.closeForm());
+      closeTodoFormBtn.addEventListener('click', () => todoForm.closeForm());
       addTodoBtn.addEventListener('click', addTodo);
-    }
 
-    function closeTodoForm() {
-      overlay.classList.add('hidden');
-      todoForm.classList.add('hidden');
-      document.getElementById('todoTitle').value = '';
-      document.getElementById('todoDescription').value = '';
-      document.getElementById('projectBtn').value = '';
-      document.getElementById('priorityBtn').value = '';
-      dueDateBtn.valueAsDate = new Date();
-      todoForm.innerHTML = '';
-    }
-
-    function addTodo(e) {
-      e.preventDefault();
-      createTodo.addTodo();
-      closeTodoForm();
-      displayTodos();
-      setLocalStorage();
-    }
+      // functions
+      function addTodo(e) {
+        e.preventDefault();
+        createTodo.addTodo();
+        todoForm.closeForm();
+        displayTodos();
+        setLocalStorage();
+      }
+    });
   }
 
   // DISPLAY TODO
@@ -98,7 +52,6 @@ const UI = (() => {
         (currentDisplay === projectName && todo.project === projectName)
       ) {
         // prettier-ignore
-        console.log(todo.project);
         const html = `
         <div class="todo" data-index=${index}>
           <div class="todo__left">
@@ -160,11 +113,16 @@ const UI = (() => {
         }
         if (!todoTitle.classList.contains('todo__title--complete')) {
           todo.status = 'unfinished';
-          const findObject = finishedTodos.find(
-            finishedTodo => finishedTodo === todo
-          );
-          const findIndex = finishedTodos.indexOf(findObject);
-          finishedTodos.splice(findIndex, 1);
+          if (finishedTodos.length > 0) {
+            const findObject = finishedTodos.find(
+              finishedTodo => finishedTodo === todo
+            );
+            console.log(findObject);
+
+            const findIndex = finishedTodos.indexOf(findObject);
+            console.log(todo);
+            finishedTodos.splice(findIndex, 1);
+          }
           setLocalStorage();
           progressBar();
         }
@@ -176,9 +134,20 @@ const UI = (() => {
     container.addEventListener('click', e => {
       if (e.target.classList.contains('delete')) {
         const todoIndex = e.target.closest('.todo').dataset.index;
+        const todo = allTodos[todoIndex];
+
+        if (todo.status === 'finished') {
+          const findObject = finishedTodos.find(
+            finishedTodo => finishedTodo === todo
+          );
+          const findIndex = finishedTodos.indexOf(findObject);
+          finishedTodos.splice(findIndex, 1);
+        }
+
         allTodos.splice(todoIndex, 1);
         displayTodos();
         setLocalStorage();
+        progressBar();
       }
     });
   }
@@ -189,8 +158,10 @@ const UI = (() => {
       if (e.target.classList.contains('edit')) {
         const todoIndex = e.target.closest('.todo').dataset.index;
         const currTodo = allTodos[todoIndex];
-        displayEditForm();
+        const editForm = new Forms();
+        editForm.displayForm('edit');
 
+        // set default form values
         const title = document.getElementById('todoTitle');
         const description = document.getElementById('todoDescription');
         const dueDate = document.getElementById('dueDateBtn');
@@ -203,58 +174,14 @@ const UI = (() => {
         priority.value = currTodo.priority;
         title.focus();
 
-        function displayEditForm() {
-          overlay.classList.remove('hidden');
-          todoForm.classList.remove('hidden');
+        // handlers
+        const editTodoBtn = document.querySelector('#editTodoBtn');
+        const closeEditBtn = document.querySelector('#closeEditFormBtn');
+        closeEditBtn.addEventListener('click', () => editForm.closeForm());
+        overlay.addEventListener('click', () => editForm.closeForm());
+        editTodoBtn.addEventListener('click', pushEdit);
 
-          const html = `
-          <div class="form__header">
-            <h2 class="form__title">EDIT TASK</h2>
-            <span class="icon icon--bold material-icons-outlined" id="closeEditFormBtn">close</span>
-          </div>
-
-          <form class="form__form">
-            <div class="form__inputs">
-              <input class="form__text form__text--bold" type="text" placeholder="Title of the task" id="todoTitle">
-              <textarea class="form__text" rows="3" cols="0" placeholder="Description" id="todoDescription" ></textarea>
-              <div class="form__buttons">
-                <input class="btn btn--secondary" type="date" id="dueDateBtn"></button>
-                <select class="btn btn--secondary" id="projectBtn">
-                  <option disabled selected value>PROJECT</option>
-                </select>
-                <select class="btn btn--secondary" id="priorityBtn">
-                  <option disabled selected value>PRIORITY</option>
-                  <option value="high">HIGH</option>
-                  <option value="medium">MEDIUM</option>
-                  <option value="low">LOW</option>
-                </select>
-              </div>
-            </div>
-            <button class="btn btn--primary" id="editTodoBtn">EDIT TASK</button>
-          </form>`;
-
-          todoForm.innerHTML = html;
-          const editTodoBtn = document.querySelector('#editTodoBtn');
-          const closeEditBtn = document.querySelector('#closeEditFormBtn');
-
-          projects.forEach(project => {
-            const projectSelect = document.getElementById('projectBtn');
-            const html = `<option value="${project.name}">${project.name}</option>`;
-            projectSelect.insertAdjacentHTML('beforeend', html);
-          });
-
-          // handlers
-          closeEditBtn.addEventListener('click', closeEditForm);
-          overlay.addEventListener('click', closeEditForm);
-          editTodoBtn.addEventListener('click', pushEdit);
-        }
-
-        function closeEditForm() {
-          overlay.classList.add('hidden');
-          todoForm.classList.add('hidden');
-          todoForm.innerHTML = '';
-        }
-
+        // functions
         function pushEdit(e) {
           e.preventDefault();
           currTodo.title = title.value;
@@ -262,7 +189,7 @@ const UI = (() => {
           currTodo.dueDate = dueDate.value;
           currTodo.project = project.value;
           currTodo.priority = priority.value;
-          closeEditForm();
+          editForm.closeForm();
           displayTodos();
           setLocalStorage();
         }
@@ -276,8 +203,8 @@ const UI = (() => {
 
   function displayProjectForm() {
     overlay.classList.remove('hidden');
-    todoForm.classList.remove('hidden');
-    todoForm.classList.add('form--small');
+    form.classList.remove('hidden');
+    form.classList.add('form--small');
 
     const html = `
           <div class="form__header">
@@ -291,7 +218,7 @@ const UI = (() => {
             </div>
             <button class="btn btn--primary" id="addProjectBtn">ADD PROJECT</button>
           </form>`;
-    todoForm.innerHTML = html;
+    form.innerHTML = html;
 
     const addProjectBtn = document.querySelector('#addProjectBtn');
     const closeProjectFormBtn = document.querySelector('#closeProjectFormBtn');
@@ -303,9 +230,9 @@ const UI = (() => {
 
     function closeProjectForm() {
       overlay.classList.add('hidden');
-      todoForm.classList.add('hidden');
-      todoForm.classList.remove('form--small');
-      todoForm.innerHTML = '';
+      form.classList.add('hidden');
+      form.classList.remove('form--small');
+      form.innerHTML = '';
     }
 
     function addProject(e) {
@@ -341,20 +268,17 @@ const UI = (() => {
   function showToday() {
     currentDisplay = 'today';
     currentTab.textContent = 'TODAY';
-    console.log(currentDisplay);
     displayTodos();
   }
 
   function showHome() {
     currentDisplay = 'home';
-    console.log(currentDisplay);
     currentTab.textContent = 'HOME';
     displayTodos();
   }
 
   function showProject(projectName) {
     currentDisplay = projectName;
-    console.log(currentDisplay);
     currentTab.textContent = projectName;
     displayTodos(projectName);
   }
@@ -370,12 +294,16 @@ const UI = (() => {
     const finishedProjectTodos = finishedTodos.filter(
       todo => todo.project === projectName
     );
+
     let width =
       currentDisplay === 'today'
         ? (finishedTodayTodos.length / todayTodos.length) * 100
         : currentDisplay === projectName
         ? (finishedProjectTodos.length / projectTodos.length) * 100
-        : (finishedTodos.length / allTodos.length) * 100;
+        : currentDisplay === 'home'
+        ? (finishedTodos.length / allTodos.length) * 100
+        : 0;
+    if (isNaN(width)) width = 0;
     const bar = document.getElementById('progress');
     bar.style.width = width + '%';
   }
