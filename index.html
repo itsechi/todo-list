@@ -25,8 +25,8 @@
         <li><button class="btn btn--tertiary" id="showHomeBtn">HOME</button></li>
         <li><button class="btn btn--tertiary" id="showTodayBtn">TODAY</button></li>
         <li><select class="btn btn--tertiary" id="projectSelect">
-          <option disabled selected value>PROJECTS</option>
-        </select></li>
+            <option disabled selected value>PROJECTS</option>
+          </select></li>
       </ul>
     </nav>
     <div class="nav__buttons">
@@ -41,6 +41,16 @@
       <div class="main__progress">
         <div class="main__progress-bar" id="progress"></div>
       </div>
+    </div>
+    <div class="main__buttons">
+      <select class="btn btn--secondary" id="sortByBtn">
+        <option disabled selected value>SORT BY</option>
+        <option value="new">NEW</option>
+        <option value="status">STATUS</option>
+        <option value="dueDate">DUE DATE</option>
+      </select>
+      <button class="btn btn--secondary" id="deleteCompletedBtn">DELETE COMPLETED</button>
+      <button class="btn btn--secondary" id="deleteProjectBtn">DELETE PROJECT</button>
     </div>
     <div class="overlay hidden" id="overlay"></div>
 
