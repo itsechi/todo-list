@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
 }
 
 .logo {
@@ -21,6 +22,10 @@
 }
 
 .nav {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+
   & ul {
     display: flex;
   }
@@ -48,5 +53,12 @@
     background-color: black;
     border-radius: 10rem;
     transition: width 0.5s;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
   }
 }

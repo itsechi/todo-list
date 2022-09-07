@@ -43,6 +43,7 @@ const UI = (() => {
   // DISPLAY TODO
   function displayTodos(projectName) {
     container.innerHTML = '';
+
     allTodos.forEach((todo, index) => {
       const today = format(new Date(), 'yyyy-MM-dd');
       const date = format(new Date(todo.dueDate), 'dd MMM yyyy');
@@ -110,20 +111,19 @@ const UI = (() => {
           setLocalStorage();
           progressBar(currentDisplay);
         }
+
         if (!todoTitle.classList.contains('todo__title--complete')) {
           todo.status = 'unfinished';
           if (finishedTodos.length > 0) {
             const findObject = finishedTodos.find(
               finishedTodo => finishedTodo === todo
             );
-
             const findIndex = finishedTodos.indexOf(findObject);
-            console.log(todo);
             finishedTodos.splice(findIndex, 1);
           }
+
           setLocalStorage();
           progressBar(currentDisplay);
-          console.log(currentDisplay);
         }
       }
     });
@@ -134,7 +134,6 @@ const UI = (() => {
       if (e.target.classList.contains('delete')) {
         const todoIndex = e.target.closest('.todo').dataset.index;
         const todo = allTodos[todoIndex];
-        console.log(currentDisplay);
 
         if (todo.status === 'finished') {
           const findObject = finishedTodos.find(
@@ -147,9 +146,41 @@ const UI = (() => {
         allTodos.splice(todoIndex, 1);
         displayTodos(currentDisplay);
         setLocalStorage();
-        progressBar();
       }
     });
+  }
+
+  // SORT TODOS
+  function sortTodos() {
+    const sortByBtn = document.getElementById('sortByBtn');
+    sortByBtn.addEventListener('change', () => {
+      if (sortByBtn.value === 'new') {
+        allTodos.sort((a, b) => {
+          return sortBy(a.creationDate, b.creationDate);
+        });
+      }
+      if (sortByBtn.value === 'status') {
+        allTodos.sort((a, b) => {
+          return sortBy(a.status, b.status);
+        });
+      }
+
+      if (sortByBtn.value === 'dueDate') {
+        allTodos.sort((a, b) => {
+          return sortBy(a.dueDate, b.dueDate);
+        });
+      }
+      displayTodos(currentDisplay);
+    });
+
+    function sortBy(first, second) {
+      if (first < second) {
+        return -1;
+      }
+      if (first > second) {
+        return 1;
+      }
+    }
   }
 
   // EDIT TODO
@@ -198,81 +229,88 @@ const UI = (() => {
   }
 
   // PROJECTS
-  const openProjectFormBtn = document.getElementById('openProjectFormBtn');
-  openProjectFormBtn.addEventListener('click', displayProjectForm);
+  function createProjects() {
+    const openProjectFormBtn = document.getElementById('openProjectFormBtn');
+    openProjectFormBtn.addEventListener('click', displayProjectForm);
 
-  function displayProjectForm() {
-    overlay.classList.remove('hidden');
-    form.classList.remove('hidden');
-    form.classList.add('form--small');
+    function displayProjectForm() {
+      overlay.classList.remove('hidden');
+      form.classList.remove('hidden');
+      form.classList.add('form--small');
 
-    const html = `
-          <div class="form__header">
-            <h2 class="form__title">ADD PROJECT</h2>
-            <span class="icon icon--bold material-icons-outlined" id="closeProjectFormBtn">close</span>
-          </div>
-
-          <form class="form__form">
-            <div class="form__inputs">
-              <input class="form__text form__text--bold" type="text" placeholder="Title of the project" id="projectTitle">
+      const html = `
+            <div class="form__header">
+              <h2 class="form__title">ADD PROJECT</h2>
+              <span class="icon icon--bold material-icons-outlined" id="closeProjectFormBtn">close</span>
             </div>
-            <button class="btn btn--primary" id="addProjectBtn">ADD PROJECT</button>
-          </form>`;
-    form.innerHTML = html;
+  
+            <form class="form__form">
+              <div class="form__inputs">
+                <input class="form__text form__text--bold" type="text" placeholder="Title of the project" id="projectTitle">
+              </div>
+              <button class="btn btn--primary" id="addProjectBtn">ADD PROJECT</button>
+            </form>`;
+      form.innerHTML = html;
 
-    const addProjectBtn = document.querySelector('#addProjectBtn');
-    const closeProjectFormBtn = document.querySelector('#closeProjectFormBtn');
+      const addProjectBtn = document.querySelector('#addProjectBtn');
+      const closeProjectFormBtn = document.querySelector(
+        '#closeProjectFormBtn'
+      );
 
-    // handlers
-    closeProjectFormBtn.addEventListener('click', closeProjectForm);
-    overlay.addEventListener('click', closeProjectForm);
-    addProjectBtn.addEventListener('click', addProject);
+      // handlers
+      closeProjectFormBtn.addEventListener('click', closeProjectForm);
+      overlay.addEventListener('click', closeProjectForm);
+      addProjectBtn.addEventListener('click', addProject);
 
-    function closeProjectForm() {
-      overlay.classList.add('hidden');
-      form.classList.add('hidden');
-      form.classList.remove('form--small');
-      form.innerHTML = '';
-    }
+      function closeProjectForm() {
+        overlay.classList.add('hidden');
+        form.classList.add('hidden');
+        form.classList.remove('form--small');
+        form.innerHTML = '';
+      }
 
-    function addProject(e) {
-      e.preventDefault();
-      const projectTitle = document.querySelector('#projectTitle').value;
-      const project = new Project(projectTitle);
-      projects.push(project);
-      projects.forEach(project => {
-        const projectSelect = document.getElementById('projectSelect');
-        const html = `<option value="${project.name}">${project.name}</option>`;
-        projectSelect.insertAdjacentHTML('beforeend', html);
-      });
-      setLocalStorage();
-      closeProjectForm();
+      function addProject(e) {
+        e.preventDefault();
+        const projectTitle = document.querySelector('#projectTitle').value;
+        const project = new Project(projectTitle);
+        projects.push(project);
+        projects.forEach(project => {
+          const projectSelect = document.getElementById('projectSelect');
+          const html = `<option value="${project.name}">${project.name}</option>`;
+          projectSelect.insertAdjacentHTML('beforeend', html);
+        });
+        setLocalStorage();
+        closeProjectForm();
+      }
     }
   }
 
   // DISPLAY TABS
-  const showTodayBtn = document.getElementById('showTodayBtn');
-  showTodayBtn.addEventListener('click', () => {
-    showTab('today');
-  });
+  function displayTabs() {
+    const showTodayBtn = document.getElementById('showTodayBtn');
+    showTodayBtn.addEventListener('click', () => {
+      showTab('today');
+    });
 
-  const showHomeBtn = document.getElementById('showHomeBtn');
-  showHomeBtn.addEventListener('click', () => {
-    showTab('home');
-  });
+    const showHomeBtn = document.getElementById('showHomeBtn');
+    showHomeBtn.addEventListener('click', () => {
+      showTab('home');
+    });
 
-  const projectSelect = document.getElementById('projectSelect');
-  projectSelect.addEventListener('change', () => {
-    showTab(projectSelect.value);
-    projectSelect.value = '';
-  });
+    const projectSelect = document.getElementById('projectSelect');
+    projectSelect.addEventListener('change', () => {
+      showTab(projectSelect.value);
+      projectSelect.value = '';
+    });
 
-  function showTab(projectName) {
-    currentDisplay = projectName;
-    currentTab.textContent = projectName.toUpperCase();
-    displayTodos(projectName);
+    function showTab(projectName) {
+      currentDisplay = projectName;
+      currentTab.textContent = projectName.toUpperCase();
+      displayTodos(projectName);
+    }
   }
 
+  // PROGRESS BAR
   function progressBar(projectName) {
     const today = format(new Date(), 'yyyy-MM-dd');
     const todayTodos = allTodos.filter(todo => todo.dueDate === today);
@@ -283,7 +321,6 @@ const UI = (() => {
     const finishedProjectTodos = finishedTodos.filter(
       todo => todo.project === projectName
     );
-    console.log(currentDisplay);
     let width =
       currentDisplay === 'today'
         ? (finishedTodayTodos.length / todayTodos.length) * 100
@@ -296,7 +333,7 @@ const UI = (() => {
     bar.style.width = width + '%';
   }
 
-  function displayProjects() {
+  function addProjectsToSelect() {
     projects.forEach(project => {
       const projectSelect = document.getElementById('projectSelect');
       const html = `<option value="${project.name}">${project.name}</option>`;
@@ -306,13 +343,15 @@ const UI = (() => {
 
   function initialize() {
     createTodoForm();
-    displayTodos();
     displayDetails();
     markComplete();
     removeTodo();
     createEditForm();
     getLocalStorage();
-    displayProjects();
+    addProjectsToSelect();
+    sortTodos();
+    createProjects();
+    displayTabs();
   }
 
   return { initialize, displayTodos, finishedTodos, projects };

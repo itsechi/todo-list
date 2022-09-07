@@ -9,6 +9,7 @@ export const createTodo = (() => {
     const dueDate = document.getElementById('dueDateBtn').value;
     const project = document.getElementById('projectBtn').value;
     const priority = document.getElementById('priorityBtn').value;
+    const creationDate = Date.now();
 
     if (!title || title.trim().length === 0) return;
     const todo = new Todo(
@@ -17,7 +18,8 @@ export const createTodo = (() => {
       dueDate,
       project,
       priority,
-      'unfinished'
+      'unfinished',
+      creationDate
     );
     unfinishedTodos.push(todo);
   }
