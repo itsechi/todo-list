@@ -10,7 +10,7 @@ const UI = (() => {
   const overlay = document.getElementById('overlay');
   const form = document.getElementById('todoForm');
   const allTodos = createTodo.unfinishedTodos;
-  const finishedTodos = [];
+  let finishedTodos = [];
   const projects = [];
   let currentDisplay = 'home';
 
@@ -148,6 +148,24 @@ const UI = (() => {
         setLocalStorage();
       }
     });
+  }
+
+  function removeCompleted() {
+    const deleteCompletedBtn = document.getElementById('deleteCompletedBtn');
+    deleteCompletedBtn.addEventListener('click', deleteCompleted);
+    
+    function deleteCompleted() {
+      const findCompletedInAll = allTodos.filter(
+        todo => todo.status === 'finished'
+      );
+      findCompletedInAll.map(todo => {
+        const index = allTodos.indexOf(todo);
+        allTodos.splice(index, 1);
+        finishedTodos = [];
+      });
+      displayTodos(currentDisplay);
+      setLocalStorage();
+    }
   }
 
   // SORT TODOS
@@ -352,6 +370,7 @@ const UI = (() => {
     sortTodos();
     createProjects();
     displayTabs();
+    removeCompleted();
   }
 
   return { initialize, displayTodos, finishedTodos, projects };
