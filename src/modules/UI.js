@@ -10,7 +10,7 @@ const UI = (() => {
   const overlay = document.getElementById('overlay');
   const form = document.getElementById('todoForm');
   const allTodos = createTodo.unfinishedTodos;
-  let finishedTodos = [];
+  const finishedTodos = [];
   const projects = [];
   let currentDisplay = 'home';
 
@@ -115,10 +115,9 @@ const UI = (() => {
         if (!todoTitle.classList.contains('todo__title--complete')) {
           todo.status = 'unfinished';
           if (finishedTodos.length > 0) {
-            const findObject = finishedTodos.find(
+            const findIndex = finishedTodos.findIndex(
               finishedTodo => finishedTodo === todo
             );
-            const findIndex = finishedTodos.indexOf(findObject);
             finishedTodos.splice(findIndex, 1);
           }
 
@@ -153,7 +152,7 @@ const UI = (() => {
   function removeCompleted() {
     const deleteCompletedBtn = document.getElementById('deleteCompletedBtn');
     deleteCompletedBtn.addEventListener('click', deleteCompleted);
-    
+
     function deleteCompleted() {
       const findCompletedInAll = allTodos.filter(
         todo => todo.status === 'finished'
@@ -161,7 +160,7 @@ const UI = (() => {
       findCompletedInAll.map(todo => {
         const index = allTodos.indexOf(todo);
         allTodos.splice(index, 1);
-        finishedTodos = [];
+        finishedTodos.splice(0, finishedTodos.length);
       });
       displayTodos(currentDisplay);
       setLocalStorage();
@@ -292,14 +291,49 @@ const UI = (() => {
         const projectTitle = document.querySelector('#projectTitle').value;
         const project = new Project(projectTitle);
         projects.push(project);
-        projects.forEach(project => {
-          const projectSelect = document.getElementById('projectSelect');
-          const html = `<option value="${project.name}">${project.name}</option>`;
-          projectSelect.insertAdjacentHTML('beforeend', html);
-        });
+        addProjectsToSelect();
         setLocalStorage();
         closeProjectForm();
       }
+    }
+  }
+
+  function removeProject() {
+    const deleteProjectBtn = document.getElementById('deleteProjectBtn');
+    deleteProjectBtn.addEventListener('click', deleteProject);
+
+    function deleteProject() {
+      const currentProject = projects.findIndex(
+        project => project.name === currentDisplay
+      );
+      const projectTodos = allTodos.filter(
+        todo => todo.project === currentDisplay
+      );
+      const projectFinishedTodos = finishedTodos.filter(
+        todo => todo.project === currentDisplay
+      );
+
+      // remove todos from allTodos
+      projectTodos.map(todo => {
+        const index = allTodos.indexOf(todo);
+        allTodos.splice(index, 1);
+      });
+      // remove todos from finishedTodos
+      projectFinishedTodos.map(todo => {
+        const index = finishedTodos.indexOf(todo);
+        finishedTodos.splice(index, 1);
+      });
+
+      // remove the project and update UI
+      projects.splice(currentProject, 1);
+      const todoSelect = document.querySelector(
+        `option[value="${currentDisplay}"]`
+      );
+      todoSelect.remove();
+      currentDisplay = 'home';
+      displayTodos(currentDisplay);
+      displayTabs().showTab('home');
+      setLocalStorage();
     }
   }
 
@@ -326,6 +360,7 @@ const UI = (() => {
       currentTab.textContent = projectName.toUpperCase();
       displayTodos(projectName);
     }
+    return { showTab };
   }
 
   // PROGRESS BAR
@@ -352,8 +387,10 @@ const UI = (() => {
   }
 
   function addProjectsToSelect() {
+    const projectSelect = document.getElementById('projectSelect');
+    projectSelect.innerHTML =
+      '<option disabled="" selected="" value="">PROJECTS</option>';
     projects.forEach(project => {
-      const projectSelect = document.getElementById('projectSelect');
       const html = `<option value="${project.name}">${project.name}</option>`;
       projectSelect.insertAdjacentHTML('beforeend', html);
     });
@@ -371,6 +408,7 @@ const UI = (() => {
     createProjects();
     displayTabs();
     removeCompleted();
+    removeProject();
   }
 
   return { initialize, displayTodos, finishedTodos, projects };
