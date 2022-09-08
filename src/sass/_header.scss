@@ -4,6 +4,10 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+
+  @media (max-width: $breakpoint-large) {
+    flex-direction: column;
+  }
 }
 
 .logo {
@@ -29,36 +33,9 @@
   & ul {
     display: flex;
   }
-}
 
-.main {
-  &__header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-  }
-
-  &__progress {
-    width: 70vw;
-    height: 1rem;
-    background-color: $grey;
-    border-radius: 10rem;
-    margin-left: 2rem;
-  }
-
-  &__progress-bar {
-    width: 0;
-    height: 1rem;
-    background-color: black;
-    border-radius: 10rem;
-    transition: width 0.5s;
-  }
-
-  &__buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
+  @media (max-width: $breakpoint-xlarge) {
+    position: static;
+    transform: translateX(0);
   }
 }

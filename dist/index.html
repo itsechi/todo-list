@@ -14,7 +14,6 @@
 
 <body>
   <header class="header">
-
     <div class="logo">
       <img class="logo__img" src="img/logo.svg" alt="">
       <h1 class="logo__text">ToDoList</h1>
@@ -35,6 +34,8 @@
     </div>
   </header>
 
+  <div class="overlay hidden" id="overlay"></div>
+
   <main class="main">
     <div class="main__header">
       <h2 class="main__title" id="currentTab">HOME</h2>
@@ -43,16 +44,15 @@
       </div>
     </div>
     <div class="main__buttons">
+      <button class="btn btn--secondary" id="deleteCompletedBtn">DELETE COMPLETED</button>
       <select class="btn btn--secondary" id="sortByBtn">
         <option disabled selected value>SORT BY</option>
         <option value="new">NEW</option>
         <option value="status">STATUS</option>
         <option value="dueDate">DUE DATE</option>
       </select>
-      <button class="btn btn--secondary" id="deleteCompletedBtn">DELETE COMPLETED</button>
       <button class="btn btn--secondary" id="deleteProjectBtn">DELETE PROJECT</button>
     </div>
-    <div class="overlay hidden" id="overlay"></div>
 
     <div class="form hidden" id="todoForm"></div>
 

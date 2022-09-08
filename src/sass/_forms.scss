@@ -12,6 +12,15 @@
   transform: translateX(-50%);
   z-index: 2;
 
+  @media (max-width: $breakpoint-large) {
+    width: 35rem;
+  }
+
+  @media (max-width: $breakpoint-small) {
+    width: 95%;
+    height: 26rem;
+  }
+
   &__header {
     display: flex;
     justify-content: space-between;
@@ -50,6 +59,10 @@
   &__buttons {
     display: flex;
     justify-content: center;
+
+    @media (max-width: $breakpoint-small) {
+      flex-direction: column;
+    }
   }
 
   &.hidden {

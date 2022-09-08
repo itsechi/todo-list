@@ -15,8 +15,15 @@
   margin-top: 0;
   background-color: $grey;
   padding: 1rem 1.5rem;
-  // border: 1px solid black;
   width: 40rem;
+
+  @media (max-width: $breakpoint-large) {
+    width: 35rem;
+  }
+
+  @media (max-width: $breakpoint-small) {
+    width: 95%;
+  }
 
   &__left {
     display: flex;
