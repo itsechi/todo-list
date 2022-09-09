@@ -76,6 +76,8 @@
 
   &__description {
     animation: animate-description .1s linear;
+    max-width: 29rem;
+    word-break: break-all;
 
   }
 }
