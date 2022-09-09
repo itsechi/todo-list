@@ -25,6 +25,7 @@ export default class Forms {
             <input class="btn btn--secondary" type="date" id="dueDateBtn"></button>
             <select class="btn btn--secondary" id="projectBtn">
               <option disabled selected value>PROJECT</option>
+              <option value="home">HOME</option>
             </select>
             <select class="btn btn--secondary" id="priorityBtn">
               <option disabled selected value>PRIORITY</option>

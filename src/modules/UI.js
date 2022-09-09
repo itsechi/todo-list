@@ -289,6 +289,7 @@ const UI = (() => {
       function addProject(e) {
         e.preventDefault();
         const projectTitle = document.querySelector('#projectTitle').value;
+        if (!projectTitle || projectTitle.trim().length === 0) return;
         const project = new Project(projectTitle);
         projects.push(project);
         addProjectsToSelect();
