@@ -43,7 +43,7 @@ export default class Forms {
 
     UI.projects.forEach(project => {
       const projectSelect = document.getElementById('projectBtn');
-      const html = `<option value="${project.name}">${project.name}</option>`;
+      const html = `<option value="${project.name}">${project.name.length > 20 ? project.name.substring(0, 20) + '...' : project.name}</option>`;
       projectSelect.insertAdjacentHTML('beforeend', html);
     });
   }

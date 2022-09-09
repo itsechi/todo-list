@@ -97,6 +97,10 @@ option {
   font-weight: 700;
 }
 
+select {
+  max-width: 11rem; 
+}
+
 .overlay {
   background-color: rgba(0, 0, 0, 0.46);
   width: 100%;

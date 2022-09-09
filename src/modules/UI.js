@@ -332,13 +332,13 @@ const UI = (() => {
       todoSelect.remove();
       currentDisplay = 'home';
       displayTodos(currentDisplay);
-      displayTabs().showTab('home');
+      showTab('home');
       setLocalStorage();
     }
   }
 
   // DISPLAY TABS
-  function displayTabs() {
+  function tabHandlers() {
     const showTodayBtn = document.getElementById('showTodayBtn');
     showTodayBtn.addEventListener('click', () => {
       showTab('today');
@@ -352,15 +352,18 @@ const UI = (() => {
     const projectSelect = document.getElementById('projectSelect');
     projectSelect.addEventListener('change', () => {
       showTab(projectSelect.value);
+      currentDisplay = projectSelect.value;
       projectSelect.value = '';
     });
+  }
 
-    function showTab(projectName) {
-      currentDisplay = projectName;
-      currentTab.textContent = projectName.toUpperCase();
-      displayTodos(projectName);
-    }
-    return { showTab };
+  function showTab(projectName) {
+    currentDisplay = projectName;
+    currentTab.textContent =
+      projectName.length > 15
+        ? projectName.toUpperCase().substring(0, 15) + '...'
+        : projectName.toUpperCase();
+    displayTodos(projectName);
   }
 
   // PROGRESS BAR
@@ -389,9 +392,13 @@ const UI = (() => {
   function addProjectsToSelect() {
     const projectSelect = document.getElementById('projectSelect');
     projectSelect.innerHTML =
-      '<option disabled="" selected="" value="">PROJECTS</option>';
+      '<option disabled selected value>PROJECTS</option>';
     projects.forEach(project => {
-      const html = `<option value="${project.name}">${project.name}</option>`;
+      const html = `<option value="${project.name}">${
+        project.name.length > 20
+          ? project.name.substring(0, 20) + '...'
+          : project.name
+      }</option>`;
       projectSelect.insertAdjacentHTML('beforeend', html);
     });
   }
@@ -406,9 +413,9 @@ const UI = (() => {
     addProjectsToSelect();
     sortTodos();
     createProjects();
-    displayTabs();
     removeCompleted();
     removeProject();
+    tabHandlers();
   }
 
   return { initialize, displayTodos, finishedTodos, projects };
