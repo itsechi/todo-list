@@ -2,13 +2,13 @@
   background-color: white;
   height: 20rem;
   width: 50rem;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
   position: absolute;
   left: 50%;
+  top: 20vh;
   transform: translateX(-50%);
   z-index: 2;
 
@@ -62,6 +62,12 @@
 
     @media (max-width: $breakpoint-small) {
       flex-direction: column;
+    }
+
+    & select {
+      @media (max-width: $breakpoint-small) {
+        max-width: 100%;
+      }
     }
   }
 
