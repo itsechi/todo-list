@@ -364,6 +364,12 @@ const UI = (() => {
         ? projectName.toUpperCase().substring(0, 15) + '...'
         : projectName.toUpperCase();
     displayTodos(projectName);
+
+    const deleteProjectBtn = document.getElementById('deleteProjectBtn');
+    console.log(currentDisplay);
+    deleteProjectBtn.classList.add('hidden');
+    if (currentDisplay !== 'today' && currentDisplay !== 'home')
+      deleteProjectBtn.classList.remove('hidden');
   }
 
   // PROGRESS BAR
