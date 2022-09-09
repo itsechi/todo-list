@@ -187,6 +187,12 @@ const UI = (() => {
           return sortBy(a.dueDate, b.dueDate);
         });
       }
+
+      if (sortByBtn.value === 'priority') {
+        allTodos.sort((a, b) => {
+          return sortBy(a.priority, b.priority);
+        });
+      }
       displayTodos(currentDisplay);
     });
 

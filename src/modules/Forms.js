@@ -29,9 +29,9 @@ export default class Forms {
             </select>
             <select class="btn btn--secondary" id="priorityBtn">
               <option disabled selected value>PRIORITY</option>
-              <option value="high">HIGH</option>
-              <option value="medium">MEDIUM</option>
-              <option value="low">LOW</option>
+              <option value="1-high">HIGH</option>
+              <option value="2-medium">MEDIUM</option>
+              <option value="3-low">LOW</option>
             </select>
           </div>
         </div>
