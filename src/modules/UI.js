@@ -53,7 +53,9 @@ const UI = (() => {
         (currentDisplay === projectName && todo.project === projectName)
       ) {
         const html = `
-        <div class="todo" data-index=${index}>
+        <div class="todo" data-index=${index} ${
+          todo.description !== '' ? 'style="cursor:pointer"' : ''
+        }>
           <div class="todo__left">
             <input class="todo__check" type="checkbox" ${
               todo.status === 'finished' ? 'checked' : ''
