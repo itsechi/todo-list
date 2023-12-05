@@ -60,9 +60,10 @@ li {
 
 .btn--primary {
   outline: none;
-  border: none;
+  border: 2px solid black;
   background-color: black;
   color: white;
+  margin: 0.3rem 0.5rem;
 
   &:hover {
     outline: 2px solid black;
@@ -83,6 +84,12 @@ li {
     outline: 2px solid black;
     outline-offset: -0.1rem;
   }
+}
+
+.btn--delete {
+  margin-top: 1.5rem;
+  background-color: #ff6b6b;
+  border: 2px solid #ff6b6b;
 }
 
 input,
@@ -145,11 +152,18 @@ select {
     transition: width 0.5s;
   }
 
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
   &__buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem;
+    margin-bottom: 1rem;
 
     & .btn {
       font-size: 0.8rem;

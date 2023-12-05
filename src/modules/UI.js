@@ -66,7 +66,7 @@ const UI = (() => {
               }">${todo.title}<span class="todo__priority todo__priority--${
           todo.priority
         }"></span></h3>
-              <p class="todo__description hidden">${todo.description}</p>
+              <p class="todo__description">${todo.description}</p>
               <p class="todo__date">${
                 today === todo.dueDate ? 'Today' : date
               }</p>
@@ -153,19 +153,52 @@ const UI = (() => {
 
   function removeCompleted() {
     const deleteCompletedBtn = document.getElementById('deleteCompletedBtn');
-    deleteCompletedBtn.addEventListener('click', deleteCompleted);
+    deleteCompletedBtn.addEventListener('click', displayWarning);
 
-    function deleteCompleted() {
-      const findCompletedInAll = allTodos.filter(
-        todo => todo.status === 'finished'
+    function displayWarning() {
+      overlay.classList.remove('hidden');
+      form.classList.remove('hidden');
+
+      const html = `
+            <div class="form__header">
+              <h2 class="form__title">DELETE COMPLETED</h2>
+              <span class="icon icon--bold material-icons-outlined" id="closeWarningBtn">close</span>
+            </div>
+  
+            <p>Are you sure you want to delete all completed tasks?</p>
+            <button class="btn btn--primary btn--delete" id="confirmDeleteCompletedBtn">DELETE COMPLETED</button>
+            `;
+      form.innerHTML = html;
+
+      const confirmDeleteCompletedBtn = document.querySelector(
+        '#confirmDeleteCompletedBtn'
       );
-      findCompletedInAll.map(todo => {
-        const index = allTodos.indexOf(todo);
-        allTodos.splice(index, 1);
-        finishedTodos.splice(0, finishedTodos.length);
-      });
-      displayTodos(currentDisplay);
-      setLocalStorage();
+      const closeWarningBtn = document.querySelector('#closeWarningBtn');
+
+      // handlers
+      closeWarningBtn.addEventListener('click', closeWarning);
+      overlay.addEventListener('click', closeWarning);
+      confirmDeleteCompletedBtn.addEventListener('click', deleteCompleted);
+
+      function closeWarning() {
+        overlay.classList.add('hidden');
+        form.classList.add('hidden');
+        form.innerHTML = '';
+      }
+
+      function deleteCompleted() {
+        const findCompletedInAll = allTodos.filter(
+          todo => todo.status === 'finished'
+        );
+        findCompletedInAll.map(todo => {
+          const index = allTodos.indexOf(todo);
+          allTodos.splice(index, 1);
+          finishedTodos.splice(0, finishedTodos.length);
+        });
+        displayTodos(currentDisplay);
+        setLocalStorage();
+        closeWarning();
+      }
     }
   }
 
@@ -261,7 +294,6 @@ const UI = (() => {
     function displayProjectForm() {
       overlay.classList.remove('hidden');
       form.classList.remove('hidden');
-      form.classList.add('form--small');
 
       const html = `
             <div class="form__header">
@@ -290,7 +322,6 @@ const UI = (() => {
       function closeProjectForm() {
         overlay.classList.add('hidden');
         form.classList.add('hidden');
-        form.classList.remove('form--small');
         form.innerHTML = '';
       }
 
@@ -309,40 +340,73 @@ const UI = (() => {
 
   function removeProject() {
     const deleteProjectBtn = document.getElementById('deleteProjectBtn');
-    deleteProjectBtn.addEventListener('click', deleteProject);
+    deleteProjectBtn.addEventListener('click', displayWarning);
 
-    function deleteProject() {
-      const currentProject = projects.findIndex(
-        project => project.name === currentDisplay
-      );
-      const projectTodos = allTodos.filter(
-        todo => todo.project === currentDisplay
-      );
-      const projectFinishedTodos = finishedTodos.filter(
-        todo => todo.project === currentDisplay
-      );
+    function displayWarning() {
+      overlay.classList.remove('hidden');
+      form.classList.remove('hidden');
 
-      // remove todos from allTodos
-      projectTodos.map(todo => {
-        const index = allTodos.indexOf(todo);
-        allTodos.splice(index, 1);
-      });
-      // remove todos from finishedTodos
-      projectFinishedTodos.map(todo => {
-        const index = finishedTodos.indexOf(todo);
-        finishedTodos.splice(index, 1);
-      });
+      const html = `
+            <div class="form__header">
+              <h2 class="form__title">DELETE PROJECT</h2>
+              <span class="icon icon--bold material-icons-outlined" id="closeWarningBtn">close</span>
+            </div>
+  
+            <p>Are you sure you want to delete the <span class="form__text--bold">${currentDisplay}</span> project?</p>
+            <button class="btn btn--primary btn--delete" id="confirmDeleteProjectBtn">DELETE PROJECT</button>
+            `;
+      form.innerHTML = html;
 
-      // remove the project and update UI
-      projects.splice(currentProject, 1);
-      const todoSelect = document.querySelector(
-        `option[value="${currentDisplay}"]`
+      const confirmDeleteProjectBtn = document.querySelector(
+        '#confirmDeleteProjectBtn'
       );
-      todoSelect.remove();
-      currentDisplay = 'home';
-      displayTodos(currentDisplay);
-      showTab('home');
-      setLocalStorage();
+      const closeWarningBtn = document.querySelector('#closeWarningBtn');
+
+      // handlers
+      closeWarningBtn.addEventListener('click', closeWarning);
+      overlay.addEventListener('click', closeWarning);
+      confirmDeleteProjectBtn.addEventListener('click', deleteProject);
+
+      function closeWarning() {
+        overlay.classList.add('hidden');
+        form.classList.add('hidden');
+        form.innerHTML = '';
+      }
+
+      function deleteProject() {
+        const currentProject = projects.findIndex(
+          project => project.name === currentDisplay
+        );
+        const projectTodos = allTodos.filter(
+          todo => todo.project === currentDisplay
+        );
+        const projectFinishedTodos = finishedTodos.filter(
+          todo => todo.project === currentDisplay
+        );
+
+        // remove todos from allTodos
+        projectTodos.map(todo => {
+          const index = allTodos.indexOf(todo);
+          allTodos.splice(index, 1);
+        });
+        // remove todos from finishedTodos
+        projectFinishedTodos.map(todo => {
+          const index = finishedTodos.indexOf(todo);
+          finishedTodos.splice(index, 1);
+        });
+
+        // remove the project and update UI
+        projects.splice(currentProject, 1);
+        const todoSelect = document.querySelector(
+          `option[value="${currentDisplay}"]`
+        );
+        todoSelect.remove();
+        currentDisplay = 'home';
+        displayTodos(currentDisplay);
+        showTab('home');
+        setLocalStorage();
+        closeWarning();
+      }
     }
   }
 
@@ -375,7 +439,6 @@ const UI = (() => {
     displayTodos(projectName);
 
     const deleteProjectBtn = document.getElementById('deleteProjectBtn');
-    console.log(currentDisplay);
     deleteProjectBtn.classList.add('hidden');
     if (currentDisplay !== 'today' && currentDisplay !== 'home')
       deleteProjectBtn.classList.remove('hidden');

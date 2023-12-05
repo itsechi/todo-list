@@ -1,6 +1,5 @@
 .form {
   background-color: white;
-  height: 20rem;
   width: 50rem;
   display: flex;
   flex-direction: column;
@@ -18,7 +17,6 @@
 
   @media (max-width: $breakpoint-small) {
     width: 95%;
-    height: 26rem;
   }
 
   &__header {
@@ -76,6 +74,3 @@
   }
 }
 
-.form--small {
-  height: 12rem;
-}

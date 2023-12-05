@@ -20,7 +20,7 @@ export default class Forms {
       <form class="form__form">
         <div class="form__inputs">
           <input class="form__text form__text--bold" type="text" placeholder="Title of the task" id="todoTitle">
-          <textarea class="form__text" rows="3" cols="0" placeholder="Description" id="todoDescription" ></textarea>
+          <textarea class="form__text" rows="10" cols="0" placeholder="Description" id="todoDescription" ></textarea>
           <div class="form__buttons">
             <input class="btn btn--secondary" type="date" id="dueDateBtn"></button>
             <select class="btn btn--secondary" id="projectBtn">
