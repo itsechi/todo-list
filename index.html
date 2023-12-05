@@ -30,9 +30,8 @@
       </ul>
     </nav>
 
-    <div class="nav__buttons">
+    <div class="nav__button">
       <button class="btn btn--primary" id="openProjectFormBtn">ADD PROJECT</button>
-      <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
     </div>
   </header>
 
@@ -45,8 +44,8 @@
         <div class="main__progress-bar" id="progress"></div>
       </div>
     </div>
+
     <div class="main__buttons">
-      <button class="btn btn--secondary" id="deleteCompletedBtn">DELETE COMPLETED</button>
       <select class="btn btn--secondary" id="sortByBtn">
         <option disabled selected value>SORT BY</option>
         <option value="new">NEW</option>
@@ -54,12 +53,16 @@
         <option value="dueDate">DUE DATE</option>
         <option value="priority">PRIORITY</option>
       </select>
+      <button class="btn btn--secondary" id="deleteCompletedBtn">DELETE COMPLETED</button>
       <button class="btn btn--secondary hidden" id="deleteProjectBtn">DELETE PROJECT</button>
     </div>
 
     <div class="form hidden" id="todoForm"></div>
-
+    
     <div class="todo-container" id="todoContainer"></div>
+    <div class="main__button">
+      <button class="btn btn--primary" id="openTodoFormBtn">ADD TASK</button>
+    </div>
   </main>
 
 </body>
